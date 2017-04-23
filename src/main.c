@@ -1,15 +1,16 @@
 #include <stdio.h>
-#include <Windows.h>
 #include <limits.h>
-
+#include <conio.h>
+#include <string.h>
 
 #include "HaffmanAlgh.h"
+#include "dynamic_array.h"
 
 
 int main()
 {
 	//AAAAABBBBCCCCCCCDDDDDD
-	const char sampleText[] = "AAAAABBBBCCCCCCCDDDDDD";//ÑÑŽÐ´Ð° Ð¿Ð¾Ð´Ð°ÐµÑ‚ÑÑ ÑÑ‚Ñ€Ð¾Ñ‡ÐºÐ°, Ð´Ð°Ð»ÐµÐµ Ð±ÑƒÐ´ÐµÑ‚ Ñ€ÐµÐ°Ð»Ð¸Ð·Ð°Ñ†Ð¸Ñ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ Ñ Ñ„Ð°Ð¹Ð»Ð¾Ð¼
+	const char sampleText[] = "AAAAABBBBCCCCCCCDDDDDD";//ñþäà ïîäàåòñÿ ñòðî÷êà, äàëåå áóäåò ðåàëèçàöèÿ ðàáîòû ñ ôàéëîì
 	unsigned int numberOfNodes = 0;
 	int srtLength = strlen(sampleText) + 1; //debug
 
@@ -30,7 +31,8 @@ int main()
 		acc3 = acc3->next;
 	}
 	Node * acc4 = CreateTree(root, srtLength);
-	CreateCodeOfSymbols(acc4);
-
+	string * codeTable = CreateCodeOfSymbols(acc4, srtLength);
+	GetAllCodes(codeTable);
+	_getch();
 	return 0;
 }

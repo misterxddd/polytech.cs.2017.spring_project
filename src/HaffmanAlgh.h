@@ -1,5 +1,6 @@
 #pragma once
-
+#include "dynamic_array.h"
+typedef unsigned char byte;
 typedef int bool;
 typedef int direction;
 #define true 1
@@ -7,6 +8,9 @@ typedef int direction;
 #define RIGTH 1
 #define LEFT 0
 #define MAX_SYMBOL_COUNT 256
+
+
+
 
 typedef struct vertexx
 {
@@ -19,7 +23,10 @@ typedef struct vertexx
 	int count;
 }Node;
 
-Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _rigth, Node * _next, char _symbol, int _count); //РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ СѓР·Р»Р° (РЅРѕРґР°)
+Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _rigth, Node * _next, char _symbol, int _count); //Создание нового узла (нода)
 int CreateStartNodes(Node * _root,const char * _byteArray);
-Node * CreateTree(Node * _root, int _arraySize); //РЎРѕР·РґР°РЅРёРµ РґСЂРµРІР°
-void CreateCodeOfSymbols(Node * _root);
+Node * CreateTree(Node * _root, int _arraySize); //Создание древа
+string * CreateCodeOfSymbols(Node * root, int strLen);
+string * GetCodeOfSymbol(string * _table, byte _symbol);
+string * GetBinaryText(string * table, char * bytes, int length);
+void GetAllCodes(string * table); //debug
