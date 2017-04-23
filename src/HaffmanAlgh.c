@@ -22,10 +22,12 @@ int CreateStartNodes(Node * root, const char * byteArray)
 {
 	Node * acc = root;
 	int numberOfNodes = 0;
-	for (int i = 0; i < MAX_SYMBOL_COUNT; i++)
+	int i = 0;
+	for (i = 0; i < MAX_SYMBOL_COUNT; i++)
 	{
 		int counter = 0;
-		for (int j = 0; j < strlen(byteArray) + 1; j++)
+		int j = 0;
+		for (j = 0; j < strlen(byteArray) + 1; j++)
 		{
 			if (byteArray[j] == i)
 				counter++;
@@ -33,7 +35,8 @@ int CreateStartNodes(Node * root, const char * byteArray)
 		if (counter != 0)
 		{
 			acc = root;
-			for (int i = 0; i < numberOfNodes; i++)
+			int i = 0;
+			for (i = 0; i < numberOfNodes; i++)
 			{
 				acc = acc->next;
 			}
@@ -182,8 +185,9 @@ string * GetCodeOfSymbol(string * table, byte symbol)
 
 string * GetBinaryText(string * table, char * bytes, int length)
 {
+	int i = 0;
 	string * binstr = CreateStringStruct(0, NULL);
-	for (int i = 0; i < length; i++)
+	for (i = 0; i < length; i++)
 	{
 		string * temp = CreateStringStruct(0, 0);
 		CopyString(GetCodeOfSymbol(table, bytes[i]), temp);

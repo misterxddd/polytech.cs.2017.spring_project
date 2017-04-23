@@ -1,17 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "files.h"
+#include "file.h"
 
 void OtputArchivedFile(char * Str, char * Path, string * BinStr, Node * table, int numberOfNodes)
 {
+	int i = 0;
 	FILE * file = fopen(Path, "wb");
 	char signa[4] = { 0xAB,0xAD,0xBA,0xBE };
 	fwrite(signa, 1, 4, file);
 	byte * beVal = LitlleToBigEndian(&numberOfNodes);
 	fwrite(beVal, 1, 4, file);
 	free(beVal);
-	for (int i = 0; i < numberOfNodes; i++)
+	for (i = 0; i < numberOfNodes; i++)
 	{
 		fwrite(&table->symbol, 1, 1, file);
 		beVal = LitlleToBigEndian(&table->count);
@@ -23,7 +24,7 @@ void OtputArchivedFile(char * Str, char * Path, string * BinStr, Node * table, i
 	int count = 0;
 	byte buff = 0;
 	int index = 0;
-	for (int i = 0; i < Lenght(BinStr); i++)
+	for (i = 0; i < Lenght(BinStr); i++)
 	{
 		buff = buff | (GetByIndex(BinStr, i) - 48) << (7 - count);
 		count++;

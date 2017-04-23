@@ -98,7 +98,7 @@ void ClearString(string * str)
 	while (len != 1)
 	{
 		acc = str;
-		for (int i = 0; i < len - 1; i++)
+		for (i = 0; i < len - 1; i++)
 		{
 			acc1 = acc;
 			acc = acc->next;

@@ -36,7 +36,7 @@ int main()
 	GetAllCodes(codeTable);
 	string * binTExt = GetBinaryText(codeTable, sampleText, srtLength);
 	PrintString(binTExt);
-	OtputArchivedFile(sampleText, "C:/Anime/test.bin", binTExt, root->next, numberOfNodes);
+	OtputArchivedFile(sampleText, "C:/Games/test.bin", binTExt, root->next, numberOfNodes);
 	_getch();
 	return 0;
 }
