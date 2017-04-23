@@ -24,7 +24,7 @@ typedef struct vertexx
 }Node;
 
 Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _rigth, Node * _next, char _symbol, int _count); //Создание нового узла (нода)
-int CreateStartNodes(Node * _root,const char * _byteArray);
+int CreateStartNodes(Node * _root, const char * _byteArray);
 Node * CreateTree(Node * _root, int _arraySize); //Создание древа
 string * CreateCodeOfSymbols(Node * root, int strLen);
 string * GetCodeOfSymbol(string * _table, byte _symbol);

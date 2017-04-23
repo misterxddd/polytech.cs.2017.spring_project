@@ -133,5 +133,16 @@ void Sex(string * str, string * str1)
 		str = str->next;
 	}
 	acc->next = str1;
+}
 
+char GetByIndex(string * str, int index)
+{
+	int count = 0;
+	while (str)
+	{
+		if (count == index)
+			return str->symbol;
+		count++;
+		str = str->next;
+	}
 }

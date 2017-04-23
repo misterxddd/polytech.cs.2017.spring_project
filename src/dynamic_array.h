@@ -18,3 +18,4 @@ void DeleteAll(string * _string, int _lenght);
 void ClearString(string * str);
 void CopyString(string * _str1, string * _str2);
 void Sex(string * _str, string * _str1);
+char GetByIndex(string * _str, int _index);
