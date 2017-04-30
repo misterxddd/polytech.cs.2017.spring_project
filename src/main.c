@@ -11,7 +11,7 @@
 
 int main()
 {
-	scanf("", &path);//Вводим путь к нашему файлу
+	scanf("%c", &path);//Вводим путь к нашему файлу
 	//const char path[] = "C:/Anime/file.bin";
 	int c = 0;
 	scanf("%i", &c);
