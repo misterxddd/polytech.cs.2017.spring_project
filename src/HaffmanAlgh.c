@@ -1,11 +1,10 @@
-#include <Windows.h>
 #include <limits.h>
 #include <stdio.h>
 
 #include "HaffmanAlgh.h"
 #include "dynamic_array.h"
 
-Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _rigth, Node * _next, char _symbol, int _count)
+Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _rigth, Node * _next, byte _symbol, int _count)
 {
 	Node * newNode = malloc(sizeof(Node));
 	newNode->count = _count;
@@ -18,16 +17,14 @@ Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _rigth, No
 	return newNode;
 }
 
-int CreateStartNodes(Node * root, const char * byteArray)
+int CreateStartNodes(Node * root, byte * byteArray, int size)
 {
 	Node * acc = root;
 	int numberOfNodes = 0;
-	int i = 0;
-	for (i = 0; i < MAX_SYMBOL_COUNT; i++)
+	for (byte i = 0; i < MAX_SYMBOL_COUNT; i++)
 	{
 		int counter = 0;
-		int j = 0;
-		for (j = 0; j < strlen(byteArray) + 1; j++)
+		for (int j = 0; j < size; j++)
 		{
 			if (byteArray[j] == i)
 				counter++;
@@ -35,18 +32,48 @@ int CreateStartNodes(Node * root, const char * byteArray)
 		if (counter != 0)
 		{
 			acc = root;
-			int i = 0;
-			for (i = 0; i < numberOfNodes; i++)
+			for (int i = 0; i < numberOfNodes; i++)
 			{
 				acc = acc->next;
 			}
 			numberOfNodes++;
 			acc->next = CreateNewNode(true, true, NULL, NULL, NULL, i, counter);
 		}
+		if (i == 0xff)
+			return numberOfNodes;
 	}
-
-	return numberOfNodes;
 }
+
+/*
+Node * Sort(Node * root, int numberOfNodes)
+{
+	Node * acc;
+	Node * copyroot = root;
+	int replace = acc->count;
+	int i = 0;
+	for (i = 0; i < numberOfNodes; i++)
+	{
+		root = copyroot;
+		while (root->next)
+		{
+			acc = root;
+			root = root->next;
+			if (acc->count < root->count)
+			{
+				acc->count = root->count;
+				root->count = replace;
+			}
+		}
+	}
+	return root;
+}
+
+Node * CreateTree2(Node * root, int arraysize, int numberOfNodes)
+{
+	Sort(root, numberOfNodes);
+
+
+}*/
 
 Node * CreateTree(Node * root, int arraySize)
 {
@@ -84,6 +111,7 @@ gt:
 	acc4->next = CreateNewNode(false, true, acc1, acc2, NULL, 0, acc1->count + acc2->count);
 	if ((acc1->count + acc2->count) == arraySize)
 		return acc4->next;
+ 
 	goto gt;
 }
 
@@ -91,7 +119,6 @@ string * CreateCodeOfSymbols(Node * root, int strLen)
 {
 	string * str = (string *)malloc(sizeof(string) * 256);
 	memset(str, 0, sizeof(string) * 256); // debug
-										  //static string str[256];
 	string * buf = CreateStringStruct(0, NULL);
 	Node * stackNodes[1000]; //WARNING!!! Buffer overflow!
 	Node * copyRoot = root;
@@ -113,6 +140,7 @@ string * CreateCodeOfSymbols(Node * root, int strLen)
 			root = stackNodes[0];
 			index = 0;
 			ClearString(buf);
+			printf("|");
 			goto gt;
 		}
 
@@ -126,8 +154,8 @@ string * CreateCodeOfSymbols(Node * root, int strLen)
 		}
 		if (root->isChar == true)
 		{
-			//printf("%c\n", root->symbol);
-			CopyString(buf->next, str + *(char *)(&root->symbol));
+			CopyString(buf->next, str + *(byte *)(&root->symbol));
+			printf("%c\n", root->symbol);
 			ClearString(buf);
 			index--;
 			root = stackNodes[index];
@@ -146,6 +174,7 @@ string * CreateCodeOfSymbols(Node * root, int strLen)
 		if (direct == LEFT)
 		{
 			AddToTheEnd(buf, '0');
+			printf("0");
 			if (root->left != NULL)
 				root = root->left;
 			else
@@ -154,14 +183,15 @@ string * CreateCodeOfSymbols(Node * root, int strLen)
 				root = stackNodes[index];
 				direct = !direct;
 				ClearString(buf);
+				printf("|");
 			}
 			index++;
 			stackNodes[index] = root;
 		}
 		if (direct == RIGTH)
 		{
-			//printf("1");
 			AddToTheEnd(buf, '1');
+			printf("1");
 			if (root->rigth != NULL)
 				root = root->rigth;
 			else
@@ -170,6 +200,7 @@ string * CreateCodeOfSymbols(Node * root, int strLen)
 				root = stackNodes[index];
 				direct = !direct;
 				ClearString(buf);
+				printf("|");
 			}
 			index++;
 			stackNodes[index] = root;
@@ -183,17 +214,15 @@ string * GetCodeOfSymbol(string * table, byte symbol)
 	return table + symbol;
 }
 
-string * GetBinaryText(string * table, char * bytes, int length)
+string * GetBinaryText(string * table, byte * bytes, int length)
 {
-	int i = 0;
 	string * binstr = CreateStringStruct(0, NULL);
-	for (i = 0; i < length; i++)
+	for (int i = 0; i < length; i++)
 	{
 		string * temp = CreateStringStruct(0, 0);
 		CopyString(GetCodeOfSymbol(table, bytes[i]), temp);
 		Sex(binstr, temp);
 	}
-
 	return binstr->next;
 }
 
@@ -206,7 +235,7 @@ void GetAllCodes(string * table)
 	{
 		if (*(int *)GetCodeOfSymbol(table, i))
 		{
-			printf("%c : ", i);
+			printf("%d : ", i);
 			PrintString((GetCodeOfSymbol(table, i)));
 		}
 		else if (i == (MAX_SYMBOL_COUNT - 1))
@@ -214,3 +243,34 @@ void GetAllCodes(string * table)
 	}
 }
 //END FOR DEBUG
+
+string * CreateCodeOfSymbols2(Node * root, int strLen)
+{
+	string * code = CreateStringStruct(0, 0);
+	string * str = (string *)malloc(sizeof(string) * 256);
+	memset(str, 0, sizeof(string) * 256);
+	BuildTable(root, str, code);
+	return str;
+}
+
+void BuildTable(Node * root, string * str, string * code)
+{
+	if (root->left != NULL)
+	{
+		printf("0");
+		AddToTheEnd(code, '0');
+		BuildTable(root->left, str, code);
+	}
+	if (root->rigth != NULL)
+	{
+		printf("1");
+		AddToTheEnd(code, '1');
+		BuildTable(root->rigth, str, code);
+	}
+	if (root->isChar)
+	{
+		printf("%c\n", root->symbol);
+		CopyString(code->next, str + *(byte *)(&root->symbol));
+	}
+	DeleteLast(code);
+}

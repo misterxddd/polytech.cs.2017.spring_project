@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include "dynamic_array.h"
-#include "HaffmanAlgh.h"
 #include <string.h>
 #include <stdlib.h>
 
 
-string * CreateString(char * str)
+string * CreateString(byte * str)
 {
 	int size = 0;
 	int index = 0;
@@ -24,7 +23,7 @@ string * CreateString(char * str)
 	return copyRoot;
 }
 
-string * CreateStringStruct(char symbol, string * next)
+string * CreateStringStruct(byte symbol, string * next)
 {
 	string * root = (string *)malloc(sizeof(string));
 	root->symbol = symbol;
@@ -53,7 +52,7 @@ int Lenght(string * str)
 	return count;
 }
 
-void AddToTheEnd(string * str, char symbol)
+void AddToTheEnd(string * str, byte symbol)
 {
 	string * acc = NULL;
 	while (str)
@@ -82,7 +81,6 @@ void DeleteLast(string * str)
 		}
 		acc1 = acc1->next;
 	}
-
 	free(acc);
 }
 
@@ -98,7 +96,7 @@ void ClearString(string * str)
 	while (len != 1)
 	{
 		acc = str;
-		for (i = 0; i < len - 1; i++)
+		for (int i = 0; i < len - 1; i++)
 		{
 			acc1 = acc;
 			acc = acc->next;
@@ -116,7 +114,7 @@ void CopyString(string * str1, string * str2)
 	int i = 0;
 	for (i = 0; i < count; i++)
 	{
-		*(char *)str2 = *(char *)str1;
+		*(byte *)str2 = *(byte *)str1;
 		if (i != count - 1)
 			str2->next = CreateStringStruct(0, NULL);
 		str1 = str1->next;
