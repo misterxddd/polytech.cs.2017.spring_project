@@ -135,12 +135,12 @@ void Sex(string * str, string * str1)
 
 char GetByIndex(string * str, int index)
 {
-	int count = 0;
-	while (str)
-	{
-		if (count == index)
-			return str->symbol;
-		count++;
-		str = str->next;
-	}
+    int count = 0;
+    while (str)
+    {
+        if (count == index)
+            return str->symbol;
+        count++;
+        str = str->next;
+    }
 }

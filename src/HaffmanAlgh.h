@@ -14,15 +14,11 @@ typedef struct vertexx
 }Node;
 
 Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _rigth, Node * _next, byte _symbol, int _count); //Создание нового узла (нода)
-int CreateStartNodes(Node * _root, byte * _byteArray, int _size);
+int CreateStartNodes(Node * _root,byte * _byteArray, int _size);
 Node * CreateTree(Node * _root, int _arraySize); //Создание древа
 string * CreateCodeOfSymbols2(Node * root, int strLen);
 string * CreateCodeOfSymbols(Node * root, int strLen);
 string * GetCodeOfSymbol(string * _table, byte _symbol);
-string * GetBinaryText(string * table, byte * bytes, int length);
+byte * GetArchivedBytes(string * _table, byte * _bytes, int _length, int * _lengthOfArchivedBytes);
 void GetAllCodes(string * table); //debug
-void BuildTable(Node * root, string * str, string * code);
-
-
-/*Node * Sort(Node * root, int numberOfNodes);
-Node * CreateTree2(Node * root, int arraysize, int numberOfNodes);*/
+void BuildTable(Node * root, string * str, string * buff);
