@@ -8,6 +8,14 @@ PROJECT  := AlghHuff
 CC  := gcc
 RM  := rm -rf
 
+# --------------------
+# Directories & Files
+# --------------------
+D_SRC    := ./src
+FILES_C  := $(wildcard $(D_SRC)/*.c)
+FILES_O  := $(FILES_C:.c=.o)
+
+
 # ------------
 # Flags 
 # ------------
@@ -26,14 +34,3 @@ main.o: main.c
 	$(CC) $(CFLAGS) main.c
 
 files.o: files.c
-	$(CC) $(CFLAGS) files.c
-
-dynamic_array.o: dynamic_array.c
-	$(CC) $(CFLAGS) dynamic_array.c
-
-
-HaffmanAlgh.o: HaffmanAlgh.cpp
-	$(CC) $(CFLAGS) HaffmanAlgh.cpp
-
-clean:
-	rm -rf *.o AlghHuff
