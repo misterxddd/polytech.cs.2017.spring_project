@@ -1,0 +1,39 @@
+SHELL = /bin/sh
+
+PROJECT  := AlghHuff
+
+# ------------------
+# External programs
+# ------------------
+CC  := gcc
+RM  := rm -rf
+
+# ------------
+# Flags 
+# ------------
+CFLAGS  :=-c -Wall
+
+
+# ------------
+# Targets 
+# ------------
+default: AlghHuff
+
+AlghHuff: main.o files.o dynamic_array.o HaffmanAlgh.o
+	$(CC) main.o files.o dynamic_array.o HaffmanAlgh.o -o AlghHuff
+
+main.o: main.c
+	$(CC) $(CFLAGS) main.c
+
+files.o: files.c
+	$(CC) $(CFLAGS) files.c
+
+dynamic_array.o: dynamic_array.c
+	$(CC) $(CFLAGS) dynamic_array.c
+
+
+HaffmanAlgh.o: HaffmanAlgh.cpp
+	$(CC) $(CFLAGS) HaffmanAlgh.cpp
+
+clean:
+	rm -rf *.o AlghHuff
