@@ -5,7 +5,7 @@ PROJECT  := project_name
 # ------------------
 # External programs
 # ------------------
-CC  := gcc
+CC  := gcc -g -w
 RM  := rm -rf
 
 # --------------------
@@ -18,7 +18,7 @@ FILES_O  := $(FILES_C:.c=.o)
 # ------------
 # Flags 
 # ------------
-CFLAGS  := -Wall
+CFLAGS  := -lm
 LFLAGS  :=
 
 # ------------
