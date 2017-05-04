@@ -15,9 +15,8 @@ typedef struct vertexx
 
 Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _rigth, Node * _next, byte _symbol, int _count); //Создание нового узла (нода)
 int CreateStartNodes(Node * _root,byte * _byteArray, int _size);
-Node * CreateTree(Node * _root, int _arraySize); //Создание древа
+Node * CreateTree(Node * _root, int _arraySize);
 string * CreateCodeOfSymbols2(Node * root, int strLen);
-string * CreateCodeOfSymbols(Node * root, int strLen);
 string * GetCodeOfSymbol(string * _table, byte _symbol);
 byte * GetArchivedBytes(string * _table, byte * _bytes, int _length, int * _lengthOfArchivedBytes);
 void GetAllCodes(string * table); //debug
