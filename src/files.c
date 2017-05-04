@@ -6,11 +6,11 @@
 
 void OtputArchivedFile(byte * ArchivedBytes, char * Path, Node * nodes, int numberOfNodes, int countOfArchivedBytes)
 {
-	int i = 0;
     FILE * file = fopen(Path, "wb");
     byte signa[4] = { 0xAB,0xAD,0xBA,0xBE };
     fwrite(signa, 1, 4, file);
     fwrite(&numberOfNodes, 1, 4, file);
+    int i = 0; 
     for (i = 0; i < numberOfNodes; i++)
     {
         fwrite(&nodes->symbol, 1, 1, file);
@@ -40,12 +40,11 @@ bool GetSignaHeaderByFile(FILE * file)
 
 int CreateStartNodesByArchived(FILE * file, Node * root, int * counter)
 {
-	int i = 0;
-	int countOfNodes = 0;
+    int countOfNodes = 0;
     int strLength = 0;
     fread(&countOfNodes, 1, 4, file);
     byte buff[5];
-    
+    int i = 0;
     for (i = 0; i < countOfNodes; i++)
     {
         fread(buff, 1, 5, file);
