@@ -31,17 +31,17 @@ AlghHuff: main.o files.o dynamic_array.o HaffmanAlgh.o
 	$(CC) main.o files.o dynamic_array.o HaffmanAlgh.o -o AlghHuff
 
 main.o: main.c
-	$(CC) $(CFLAGS) main.c
+	$(CC) $(CFLAGS) -I/src main.c
 
 files.o: files.c
-	$(CC) $(CFLAGS) files.c
+	$(CC) $(CFLAGS) -I/src files.c
 
 dynamic_array.o: dynamic_array.c
-	$(CC) $(CFLAGS) dynamic_array.c
+	$(CC) $(CFLAGS) -I/src dynamic_array.c
 
 
 HaffmanAlgh.o: HaffmanAlgh.cpp
-	$(CC) $(CFLAGS) HaffmanAlgh.cpp
+	$(CC) $(CFLAGS) -I/src HaffmanAlgh.cpp
 
 .phony:	clean
 
