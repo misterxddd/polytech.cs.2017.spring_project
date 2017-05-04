@@ -40,8 +40,8 @@ dynamic_array.o: dynamic_array.c
 	$(CC) $(CFLAGS) -I/src dynamic_array.c
 
 
-HaffmanAlgh.o: HaffmanAlgh.cpp
-	$(CC) $(CFLAGS) -I/src HaffmanAlgh.cpp
+HaffmanAlgh.o: HaffmanAlgh.c
+	$(CC) $(CFLAGS) -I/src HaffmanAlgh.c
 
 .phony:	clean
 
