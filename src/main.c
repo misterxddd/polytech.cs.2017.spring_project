@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <limits.h>
+#include <conio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -10,7 +11,7 @@
 
 int main()
 {
-    //const char path[] = "C:/Anime/1.txt"; //Далее будет реализована нормальная работа
+    const char path[] = "C:/Anime/1.txt";
 
     int c = 0;
     scanf("%i", &c);
@@ -37,8 +38,9 @@ int main()
             numberOfNodes = CreateStartNodes(root, bytes, fileSize);
 
             Node * acc4 = CreateTree(root, fileSize);
+            printf("Tree created");
             string * codeTable = CreateCodeOfSymbols2(acc4, fileSize);
-           // GetAllCodes(codeTable);
+            //GetAllCodes(codeTable);
             byte * archivedBytes = GetArchivedBytes(codeTable, bytes, fileSize,&lengthOfArchivedBytes);
            // PrintString(binTExt);
             OtputArchivedFile(archivedBytes, path, root->next, numberOfNodes, lengthOfArchivedBytes);
@@ -67,5 +69,6 @@ int main()
         fwrite(buff, 1, strLength, file1);
         fclose(file1);
     }
+	//_getch();
 	return 0;
 }
