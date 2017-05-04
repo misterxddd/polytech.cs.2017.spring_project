@@ -43,6 +43,7 @@ void PrintString(string * str)
 
 int Lenght(string * str)
 {
+	
 	int count = 0;
 	while (str)
 	{
@@ -96,7 +97,7 @@ void ClearString(string * str)
 	while (len != 1)
 	{
 		acc = str;
-		for (int i = 0; i < len - 1; i++)
+		for (i = 0; i < len - 1; i++)
 		{
 			acc1 = acc;
 			acc = acc->next;
