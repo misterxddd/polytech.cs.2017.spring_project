@@ -11,7 +11,7 @@
 
 int main()
 {
-    const char path[] = "C:/Anime/1.txt";
+    const char path[] = "C:/Anime/1.txt"; //Далее все будет нормально :)
 
     int c = 0;
     scanf("%i", &c);
