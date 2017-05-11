@@ -14,7 +14,7 @@ int main(int argc, char * argv[])
 	setlocale(0, "russian");
     FILE * file = fopen(argv[1], "rb"); //Открываем файл
     int fileSize = GetFileSize(file);
-	if (fileSize == NULL)
+	if (fileSize == NULL) //Проверка файла
 	{
 		printf("This file isn't detected or his size equals zero");
 		return 0;
