@@ -43,7 +43,6 @@ void PrintString(string * str)
 
 int Lenght(string * str)
 {
-	
 	int count = 0;
 	while (str)
 	{
@@ -97,7 +96,7 @@ void ClearString(string * str)
 	while (len != 1)
 	{
 		acc = str;
-		for (i = 0; i < len - 1; i++)
+		for (int i = 0; i < len - 1; i++)
 		{
 			acc1 = acc;
 			acc = acc->next;
@@ -123,16 +122,6 @@ void CopyString(string * str1, string * str2)
 	}
 }
 
-void Sex(string * str, string * str1)
-{
-	string * acc = NULL;
-	while (str)
-	{
-		acc = str;
-		str = str->next;
-	}
-	acc->next = str1;
-}
 
 char GetByIndex(string * str, int index)
 {
@@ -144,4 +133,27 @@ char GetByIndex(string * str, int index)
         count++;
         str = str->next;
     }
+}
+
+void DeleteString(string * str)
+{
+    int len = Lenght(str);
+    string * acc;
+    string * acc1 = NULL;
+    acc = str;
+    int i = 0;
+    while (len != 1)
+    {
+        acc = str;
+        for (int i = 0; i < len - 1; i++)
+        {
+            acc1 = acc;
+            acc = acc->next;
+        }
+        acc1->next = NULL;
+        free(acc);
+        len--;
+    }
+    str->next = NULL;
+    free(str);
 }
