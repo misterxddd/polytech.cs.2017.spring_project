@@ -10,8 +10,7 @@ void OtputArchivedFile(byte * ArchivedBytes, char * Path, Node * nodes, int numb
     byte signa[4] = { 0xAB,0xAD,0xBA,0xBE };
     fwrite(signa, 1, 4, file);
     fwrite(&numberOfNodes, 1, 4, file);
-    int i = 0; 
-    for (i = 0; i < numberOfNodes; i++)
+    for (int i = 0; i < numberOfNodes; i++)
     {
         fwrite(&nodes->symbol, 1, 1, file);
         fwrite(&nodes->count, 1, 4, file);
@@ -44,8 +43,8 @@ int CreateStartNodesByArchived(FILE * file, Node * root, int * counter)
     int strLength = 0;
     fread(&countOfNodes, 1, 4, file);
     byte buff[5];
-    int i = 0;
-    for (i = 0; i < countOfNodes; i++)
+    
+    for (int i = 0; i < countOfNodes; i++)
     {
         fread(buff, 1, 5, file);
         root->next = CreateNewNode(true, true, NULL, NULL, NULL, buff[0], *(int *)(buff + 1));
