@@ -2,7 +2,6 @@
 #include <limits.h>
 #include <string.h>
 #include <stdlib.h>
-#include <locale.h>
 
 #include "HaffmanAlgh.h"
 #include "dynamic_array.h"
@@ -11,39 +10,40 @@
 
 int main(int argc, char * argv[])
 {
-	setlocale(0, "russian");
-    FILE * file = fopen(argv[1], "rb"); //��������� ����
+    FILE * file = fopen(argv[1], "rb"); //Открываем файл
     int fileSize = GetFileSize(file);
-	if (fileSize == NULL) //�������� �����
+	if (fileSize == NULL) //Проверка файла
 	{
 		printf("This file isn't detected or his size equals zero");
 		return 0;
 	}
     byte * bytes;
-
-    if ((GetSignaHeaderByFile(file) == false) && fileSize <= 268435456)
+  							     //256 Мб
+    if ((GetSignaHeaderByFile(file) == false) && fileSize <= 268435456) //Проверка на наличие сигнатуры 
     {
-        bytes = (byte *)malloc(fileSize);
+        bytes = (byte *)malloc(fileSize); //Выделение памяти под файл
         if (!bytes)
         {
-            printf("bomzh!");
+            printf("Your computer is very bad!");
             return 0;
         }
         rewind(file);
-        fread(bytes, 1, fileSize, file);
+        fread(bytes, 1, fileSize, file); //Запись всех элементов файла в память
         fclose(file);
 
-        int numberOfNodes = 0;
-        int lengthOfArchivedBytes = 0;
-        Node * root = CreateNewNode(true, true, NULL, NULL, NULL, 'R', INT_MAX);
-        numberOfNodes = CreateStartNodes(root, bytes, fileSize);
+        int numberOfNodes = 0; //Количество узлов дерева
+        int lengthOfArchivedBytes = 0; //Размер заархивированного файла
+        Node * root = CreateNewNode(true, true, NULL, NULL, NULL, 'R', INT_MAX); //Начальный узел
+        numberOfNodes = CreateStartNodes(root, bytes, fileSize); //Функция создает узлы и возвращает их кол-во
 
-        Node * acc4 = CreateTree(root, fileSize);
-        string * codeTable = CreateCodeOfSymbols(acc4, fileSize);
-        byte * archivedBytes = GetArchivedBytes(codeTable, bytes, fileSize, &lengthOfArchivedBytes);
-        OtputArchivedFile(archivedBytes, argv[1], root->next, numberOfNodes, lengthOfArchivedBytes);
-
-		//��������� ���� ������� ������ ��� ������� ������
+        Node * acc4 = CreateTree(root, fileSize); //Создание дерева
+        string * codeTable = CreateCodeOfSymbols(acc4, fileSize); //Функция проходится по дереву и присваиает каждому символу новую кодировку
+        byte * archivedBytes = GetArchivedBytes(codeTable, bytes, fileSize, &lengthOfArchivedBytes); //Получаем элементы исходного файла в заархивированном виде
+        OtputArchivedFile(archivedBytes, argv[1], root->next, numberOfNodes, lengthOfArchivedBytes); //Запись заарвированных элементов в файл
+	
+	printf("Your file is archived\n");
+	    
+	//Следующий блок функций создан для очистки памяти
         free(bytes);					
         free(archivedBytes);
         int i = 0;
@@ -59,26 +59,27 @@ int main(int argc, char * argv[])
         }
         free(codeTable);
     }
-    else
+    else //При наличии сигнатуры начинается разархивация
     {
         FILE * file = fopen(argv[1], "rb");
         int fileSize = GetFileSize(file);
         if (GetSignaHeaderByFile(file) ==  true)
-            printf("Archived\n");
-        Node * root = CreateNewNode(true, true, false, NULL, NULL, 'R', INT_MAX);
+            printf("This file is Archived\n");
+        Node * root = CreateNewNode(true, true, false, NULL, NULL, 'R', INT_MAX); //Стартовый узел
         Node * copyRoot = root;
         Node * acc = NULL;
-        int siska = 0;
-        int strLength = CreateStartNodesByArchived(file,root,&siska);
-        acc = CreateTree(copyRoot, strLength);
-        byte * data = (byte *)malloc(siska);
-        fseek(file, fileSize - siska, SEEK_SET);
-        fread(data, 1, siska, file);
-        byte * buff = (byte *)malloc(strLength);
-        buff = Unarchive(acc, data, strLength, siska);
+        int str = 0; //Длина заархивированного файла без сигнатуры и таблицы
+        int strLength = CreateStartNodesByArchived(file,root,&str); //Воссоздание всех узлов дерева
+        acc = CreateTree(copyRoot, strLength); //Создание древа
+        byte * data = (byte *)malloc(str); 
+        fseek(file, fileSize - str, SEEK_SET);
+        fread(data, 1, str, file);
+        byte * buff = (byte *)malloc(strLength); //Выделение памяти под блок с разаархированным файлом
+        buff = Unarchive(acc, data, strLength, str); //Процесс разархивации
         fclose(file);
+	    
         FILE * file1 = fopen(argv[1], "wb");
-        fwrite(buff, 1, strLength, file1);
+        fwrite(buff, 1, strLength, file1); //Запись разархивированных элементов в файл
         fclose(file1);
     }
 	return 0;
