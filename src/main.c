@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <limits.h>
 #include <string.h>
 #include <stdlib.h>
@@ -81,6 +81,9 @@ int main(int argc, char * argv[])
         FILE * file1 = fopen(argv[1], "wb");
         fwrite(buff, 1, strLength, file1); //Запись разархивированных элементов в файл
         fclose(file1);
+
+	free(buff);
+	free(data);
     }
 	return 0;
 }
