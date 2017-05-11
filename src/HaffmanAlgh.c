@@ -21,20 +21,20 @@ Node * CreateNewNode(bool _isChar,bool _isNeed, Node * _left, Node * _rigth,Node
 int CreateStartNodes(Node * root, byte * byteArray, int size)
 {
     Node * acc = root;
-	int i, j;
-	int numberOfNodes = 0;
-    int entropyOfSymbols[256];
-    memset(entropyOfSymbols, 0, 256 * 4);
-    for (j = 0; j < size; j++)
+    int i, j;
+    int numberOfNodes = 0;
+    int entropyOfSymbols[256]; //Строка, в которую будет вноситься частота символов
+    memset(entropyOfSymbols, 0, 256 * 4); //Обнуление строки
+    for (j = 0; j < size; j++) //Проходится по файлу, записывает частоту
     {
         entropyOfSymbols[byteArray[j]]++;
     }
     for (i = 0; i < 256; i++)
     {
-        if (entropyOfSymbols[i] != 0)
+        if (entropyOfSymbols[i] != 0) //Если символ встречался в файле, то создается новый узел
         {
             acc->next = CreateNewNode(true, true, NULL, NULL, NULL, i, entropyOfSymbols[i]);
-            numberOfNodes++;
+            numberOfNodes++; //Количество узлов
             acc = acc->next;
         }
     }
@@ -51,7 +51,7 @@ Node * CreateTree(Node * root, int arraySize)
 
     acc3 = root->next;
 
-    while (acc3)
+    while (acc3) //Проходится по узлам до последнего
     {
         acc4 = acc3;
         acc3 = acc3->next;
@@ -62,7 +62,7 @@ Node * CreateTree(Node * root, int arraySize)
 	acc2 = root;
 	acc3 = root->next;
 
-	while (acc3)
+	while (acc3) //Находим первый узел с наименьшей частотой
 	{
 		if ((acc1->count > acc3->count) && (acc3->isNeed == true))
 			acc1 = acc3;
@@ -70,7 +70,7 @@ Node * CreateTree(Node * root, int arraySize)
 	}
 
 	acc3 = root->next;
-	while (acc3)
+	while (acc3) //Находим второй узел с наименьшей частотой
 	{
 		if ((acc2->count > acc3->count) && (acc3 != acc1) && (acc3->isNeed == true))
 			acc2 = acc3;
@@ -82,15 +82,10 @@ Node * CreateTree(Node * root, int arraySize)
 
 
 	acc4->next = CreateNewNode(false, true, acc1, acc2, NULL, 0, acc1->count + acc2->count);
-    acc4 = acc4->next;
-	if ((acc1->count + acc2->count) == arraySize)
+        acc4 = acc4->next;
+	if ((acc1->count + acc2->count) == arraySize) //Проверка на то, не последний ли это узел
 		return acc4;
 	goto gt;
-}
-
-string * GetCodeOfSymbol(string * table, byte symbol)
-{
-	return table + symbol;
 }
 
 byte * GetArchivedBytes(string * table, byte * bytes, int length, int * lengthOfArchivedBytes)
