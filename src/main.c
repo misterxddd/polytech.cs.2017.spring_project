@@ -2,6 +2,7 @@
 #include <limits.h>
 #include <string.h>
 #include <stdlib.h>
+#include <locale.h>
 
 #include "HaffmanAlgh.h"
 #include "dynamic_array.h"
@@ -10,6 +11,7 @@
 
 int main(int argc, char * argv[])
 {
+	setlocale(0, "russian");
     FILE * file = fopen(argv[1], "rb"); //Открываем файл
     int fileSize = GetFileSize(file);
 	if (fileSize == NULL)
