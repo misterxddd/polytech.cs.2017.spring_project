@@ -7,15 +7,16 @@
 void OtputArchivedFile(byte * ArchivedBytes, char * Path, Node * nodes, int numberOfNodes, int countOfArchivedBytes)
 {
     FILE * file = fopen(Path, "wb");
+    int i = 0;
     byte signa[4] = { 0xAB,0xAD,0xBA,0xBE };
     fwrite(signa, 1, 4, file);
     fwrite(&numberOfNodes, 1, 4, file);
-    for (int i = 0; i < numberOfNodes; i++)
+    for (i = 0; i < numberOfNodes; i++)
     {
         fwrite(&nodes->symbol, 1, 1, file);
         fwrite(&nodes->count, 1, 4, file);
         nodes = nodes->next;
-    }   
+    }
     fwrite(ArchivedBytes, 1, countOfArchivedBytes, file);
     fclose(file);
 }
@@ -41,10 +42,11 @@ int CreateStartNodesByArchived(FILE * file, Node * root, int * counter)
 {
     int countOfNodes = 0;
     int strLength = 0;
+	int i = 0;
     fread(&countOfNodes, 1, 4, file);
     byte buff[5];
-    
-    for (int i = 0; i < countOfNodes; i++)
+
+    for (i = 0; i < countOfNodes; i++)
     {
         fread(buff, 1, 5, file);
         root->next = CreateNewNode(true, true, NULL, NULL, NULL, buff[0], *(int *)(buff + 1));
@@ -64,17 +66,17 @@ byte * Unarchive(Node * root, byte * archivedBlock,int sizeOfBlock, int sizeOfAr
     int index2 = 0;
     byte buff = archivedBlock[index1];
     byte acc;
- 
+
     while(index1 != sizeOfArchived)
     {
         acc = buff & (1 << (7 - count));
-        if (acc) 
+        if (acc)
             root = root->rigth;
         else
-            root = root->left;        
+            root = root->left;
         if (root->isChar == true)
         {
-            str[index2] = root->symbol; 
+            str[index2] = root->symbol;
             index2++;
             root = copyRoot;
         }
