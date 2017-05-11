@@ -18,6 +18,5 @@ Node * CreateTree(Node * _root, int _arraySize);
 string * CreateCodeOfSymbols(Node * root, int strLen);
 string * GetCodeOfSymbol(string * _table, byte _symbol);
 byte * GetArchivedBytes(string * _table, byte * _bytes, int _length, int * _lengthOfArchivedBytes);
-void GetAllCodes(string * table); //debug
 void BuildTable(Node * root, string * str, string * buff);
 int CreateStartNodes(Node * root, byte * byteArray, int size);
