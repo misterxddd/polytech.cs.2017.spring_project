@@ -5,8 +5,8 @@
 #include "HaffmanAlgh.h"
 #include "dynamic_array.h"
 
-Node * CreateNewNode(bool _isChar,bool _isNeed, Node * _left, Node * _rigth,Node * _next,byte _symbol,int _count) 
-{ 
+Node * CreateNewNode(bool _isChar,bool _isNeed, Node * _left, Node * _rigth,Node * _next,byte _symbol,int _count)
+{
 	Node * newNode = malloc(sizeof(Node));
 	newNode->count = _count;
 	newNode->isChar = _isChar;
@@ -21,14 +21,15 @@ Node * CreateNewNode(bool _isChar,bool _isNeed, Node * _left, Node * _rigth,Node
 int CreateStartNodes(Node * root, byte * byteArray, int size)
 {
     Node * acc = root;
-    int numberOfNodes = 0;
+	int i, j;
+	int numberOfNodes = 0;
     int entropyOfSymbols[256];
     memset(entropyOfSymbols, 0, 256 * 4);
-    for (int i = 0; i < size; i++)
+    for (j = 0; j < size; j++)
     {
-        entropyOfSymbols[byteArray[i]]++;
+        entropyOfSymbols[byteArray[j]]++;
     }
-    for (int i = 0; i < 256; i++)
+    for (i = 0; i < 256; i++)
     {
         if (entropyOfSymbols[i] != 0)
         {
@@ -42,7 +43,7 @@ int CreateStartNodes(Node * root, byte * byteArray, int size)
 
 
 Node * CreateTree(Node * root, int arraySize)
-{	
+{
 	Node * acc1;
 	Node * acc2;
 	Node * acc3;
@@ -78,13 +79,13 @@ Node * CreateTree(Node * root, int arraySize)
 	acc1->isNeed = false;
 	acc2->isNeed = false;
 	acc3 = root->next;
-	
-		
+
+
 	acc4->next = CreateNewNode(false, true, acc1, acc2, NULL, 0, acc1->count + acc2->count);
     acc4 = acc4->next;
 	if ((acc1->count + acc2->count) == arraySize)
 		return acc4;
-	goto gt;	
+	goto gt;
 }
 
 string * GetCodeOfSymbol(string * table, byte symbol)
@@ -94,12 +95,13 @@ string * GetCodeOfSymbol(string * table, byte symbol)
 
 byte * GetArchivedBytes(string * table, byte * bytes, int length, int * lengthOfArchivedBytes)
 {
-    byte * archivedBytes = (byte *)malloc(length);
+    int k = 0;
+	byte * archivedBytes = (byte *)malloc(length);
     int * lengthsOfCodesOfSymbols = (int *)malloc(4 * 256);
-    memset(archivedBytes, 0, length); 
+    memset(archivedBytes, 0, length);
     string * buff;
-
-    for (int k = 0; k <= 0xff; k++)
+    
+    for (k = 0; k <= 0xff; k++)
     {
         buff = table + k;
         *(lengthsOfCodesOfSymbols + k) = Lenght(buff);
@@ -111,7 +113,8 @@ byte * GetArchivedBytes(string * table, byte * bytes, int length, int * lengthOf
     while (i < length)
     {
         buff = table + bytes[i];
-        for (int j = 0; j < *(lengthsOfCodesOfSymbols + bytes[i]); j++)
+		int j;
+        for (j = 0; j < *(lengthsOfCodesOfSymbols + bytes[i]); j++)
         {
             archivedBytes[index] = archivedBytes[index] | GetByIndex(buff,j) << (7 - count);
             count++;
@@ -119,8 +122,8 @@ byte * GetArchivedBytes(string * table, byte * bytes, int length, int * lengthOf
             {
                 count = 0;
                 index++;
-            }     
-        }   
+            }
+        }
         i++;
     }
     if((length % 8) != 0)
@@ -130,24 +133,6 @@ byte * GetArchivedBytes(string * table, byte * bytes, int length, int * lengthOf
     free(lengthsOfCodesOfSymbols);
     return archivedBytes;
 }
-
-
-//BEGIN FOR DEBUG
-void GetAllCodes(string * table)
-{
-	byte i = 0;
-	for (i = 0; i < MAX_SYMBOL_COUNT; i++)
-	{
-		if (*(int *)GetCodeOfSymbol(table, i))
-		{
-			printf("%x : ", i);
-			PrintString((GetCodeOfSymbol(table, i)));
-		}
-        if (i == 0xff)
-            return;
-	}
-}
-//END FOR DEBUG
 
 string * CreateCodeOfSymbols(Node * root, int strLen)
 {
