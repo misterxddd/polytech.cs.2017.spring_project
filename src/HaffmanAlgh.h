@@ -2,7 +2,7 @@
 #include "dynamic_array.h"
 #include "typedefs.h"
 
-typedef struct vertexx
+typedef struct vertexx //РЎС‚СЂСѓРєС‚СѓСЂР° СѓР·Р»Р°
 {
 	bool isChar;
 	bool isNeed;
@@ -13,7 +13,7 @@ typedef struct vertexx
 	int count;
 }Node;
 
-Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _rigth, Node * _next, byte _symbol, int _count); //Создание нового узла (нода)
+Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _rigth, Node * _next, byte _symbol, int _count); //Г‘Г®Г§Г¤Г Г­ГЁГҐ Г­Г®ГўГ®ГЈГ® ГіГ§Г«Г  (Г­Г®Г¤Г )
 Node * CreateTree(Node * _root, int _arraySize);
 string * CreateCodeOfSymbols(Node * root, int strLen);
 string * GetCodeOfSymbol(string * _table, byte _symbol);
