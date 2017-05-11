@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <limits.h>
-#include <conio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -11,8 +10,13 @@
 
 int main(int argc, char * argv[])
 {
-    FILE * file = fopen(argv[1], "rb");
+    FILE * file = fopen(argv[1], "rb"); //Открываем файл
     int fileSize = GetFileSize(file);
+	if (fileSize == NULL)
+	{
+		printf("This file isn't detected or his size equals zero");
+		return 0;
+	}
     byte * bytes;
 
     if ((GetSignaHeaderByFile(file) == false) && fileSize <= 268435456)
@@ -33,31 +37,30 @@ int main(int argc, char * argv[])
         numberOfNodes = CreateStartNodes(root, bytes, fileSize);
 
         Node * acc4 = CreateTree(root, fileSize);
-        //printf("Tree created");
         string * codeTable = CreateCodeOfSymbols(acc4, fileSize);
-        //GetAllCodes(codeTable);
         byte * archivedBytes = GetArchivedBytes(codeTable, bytes, fileSize, &lengthOfArchivedBytes);
-        // PrintString(binTExt);
         OtputArchivedFile(archivedBytes, argv[1], root->next, numberOfNodes, lengthOfArchivedBytes);
 
-        free(bytes);
+		//Следующий блок функций создан для очистки памяти
+        free(bytes);					
         free(archivedBytes);
+        int i = 0;
         while (acc4)
-        {
+        {									
             acc4 = root->next;
             free(root);
             root = acc4;
         }
-        for (int i = 0; i < 256; i++)
+        for (i = 0; i < 256; i++)
         {
             ClearString(codeTable + i);
         }
         free(codeTable);
     }
     else
-    { 
+    {
         FILE * file = fopen(argv[1], "rb");
-        int fileSize = GetFileSize(file); 
+        int fileSize = GetFileSize(file);
         if (GetSignaHeaderByFile(file) ==  true)
             printf("Archived\n");
         Node * root = CreateNewNode(true, true, false, NULL, NULL, 'R', INT_MAX);
