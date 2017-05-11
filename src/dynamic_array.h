@@ -6,13 +6,13 @@ typedef struct pop
 	struct pop * next;
 }string;
 
-string * CreateString(byte * _str); //Создание ячейки односвязного списка
-string * CreateStringStruct(byte _symbol, string * _next); //Создание самого списка
+string * CreateString(byte * _str); //РЎРѕР·РґР°РЅРёРµ СЏС‡РµР№РєРё РѕРґРЅРѕСЃРІСЏР·РЅРѕРіРѕ СЃРїРёСЃРєР°
+string * CreateStringStruct(byte _symbol, string * _next); //РЎРѕР·РґР°РЅРёРµ СЃР°РјРѕРіРѕ СЃРїРёСЃРєР°
 
-int Lenght(string * _string); //Нахождение длины списка
-void AddToTheEnd(string * _string, byte _symbol); //Добавление элемента в конец списка
-void DeleteLast(string * _string); //Удаление последнего элемента 
-void ClearString(string * str); //Очистка односвязного списка 
-void CopyString(string * _str1, string * _str2); //Копирование элементов из первого во второй
-char GetByIndex(string * _str, int _index); //Получение эллемента по i-ому индексу 
-void DeleteString(string * str); //Удаление списка
+int Lenght(string * _string); //РќР°С…РѕР¶РґРµРЅРёРµ РґР»РёРЅС‹ СЃРїРёСЃРєР°
+void AddToTheEnd(string * _string, byte _symbol); //Р”РѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РІ РєРѕРЅРµС† СЃРїРёСЃРєР°
+void DeleteLast(string * _string); //РЈРґР°Р»РµРЅРёРµ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р° 
+void ClearString(string * str); //РћС‡РёСЃС‚РєР° РѕРґРЅРѕСЃРІСЏР·РЅРѕРіРѕ СЃРїРёСЃРєР° 
+void CopyString(string * _str1, string * _str2); //РљРѕРїРёСЂРѕРІР°РЅРёРµ СЌР»РµРјРµРЅС‚РѕРІ РёР· РїРµСЂРІРѕРіРѕ РІРѕ РІС‚РѕСЂРѕР№
+char GetByIndex(string * _str, int _index); //РџРѕР»СѓС‡РµРЅРёРµ СЌР»Р»РµРјРµРЅС‚Р° РїРѕ i-РѕРјСѓ РёРЅРґРµРєСЃСѓ 
+void DeleteString(string * str); //РЈРґР°Р»РµРЅРёРµ СЃРїРёСЃРєР°
