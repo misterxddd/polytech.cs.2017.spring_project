@@ -31,15 +31,6 @@ string * CreateStringStruct(byte symbol, string * next)
 	return root;
 }
 
-void PrintString(string * str)
-{
-	while (str)
-	{
-		printf("%c", str->symbol);
-		str = str->next;
-	}
-	printf("\n");
-}
 
 int Lenght(string * str)
 {
@@ -96,7 +87,7 @@ void ClearString(string * str)
 	while (len != 1)
 	{
 		acc = str;
-		for (int i = 0; i < len - 1; i++)
+		for (i = 0; i < len - 1; i++)
 		{
 			acc1 = acc;
 			acc = acc->next;
@@ -145,7 +136,7 @@ void DeleteString(string * str)
     while (len != 1)
     {
         acc = str;
-        for (int i = 0; i < len - 1; i++)
+        for (i = 0; i < len - 1; i++)
         {
             acc1 = acc;
             acc = acc->next;
