@@ -15,5 +15,5 @@ void AddToTheEnd(string * _string, byte _symbol);
 void DeleteLast(string * _string);
 void ClearString(string * str);
 void CopyString(string * _str1, string * _str2);
-void Sex(string * _str, string * _str1);
 char GetByIndex(string * _str, int _index);
+void DeleteString(string * str);
