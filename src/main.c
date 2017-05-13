@@ -41,9 +41,9 @@ int main(int argc, char * argv[])
         byte * archivedBytes = GetArchivedBytes(codeTable, bytes, fileSize, &lengthOfArchivedBytes); //Получаем элементы исходного файла в заархивированном виде
         OtputArchivedFile(archivedBytes, argv[1], root->next, numberOfNodes, lengthOfArchivedBytes); //Запись заарвированных элементов в файл
 	
-	printf("Your file is archived\n");
+		printf("Your file is archived\n");
 	    
-	//Следующий блок функций создан для очистки памяти
+		//Следующий блок функций создан для очистки памяти
         free(bytes);					
         free(archivedBytes);
         int i = 0;
@@ -82,8 +82,10 @@ int main(int argc, char * argv[])
         fwrite(buff, 1, strLength, file1); //Запись разархивированных элементов в файл
         fclose(file1);
 
-	free(buff);
-	free(data);
+		printf("Now this file is unachived");
+
+		free(buff);
+		free(data);
     }
 	return 0;
 }

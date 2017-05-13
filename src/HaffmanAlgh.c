@@ -5,14 +5,14 @@
 #include "HaffmanAlgh.h"
 #include "dynamic_array.h"
 
-Node * CreateNewNode(bool _isChar,bool _isNeed, Node * _left, Node * _rigth,Node * _next,byte _symbol,int _count)
+Node * CreateNewNode(bool _isChar,bool _isNeed, Node * _left, Node * _right,Node * _next,byte _symbol,int _count)
 {
 	Node * newNode = malloc(sizeof(Node));
 	newNode->count = _count;
 	newNode->isChar = _isChar;
 	newNode->isNeed = _isNeed;
 	newNode->left = _left;
-	newNode->rigth = _rigth;
+	newNode->right = _right;
 	newNode->symbol = _symbol;
 	newNode->next = _next;
 	return newNode;
@@ -145,10 +145,10 @@ void BuildTable(Node * root, string * str, string * code)
         AddToTheEnd(code, 0);
         BuildTable(root->left, str, code);
     }
-    if (root->rigth != NULL)
+    if (root->right != NULL)
     {
         AddToTheEnd(code, 1);
-        BuildTable(root->rigth, str, code);
+        BuildTable(root->right, str, code);
     }
     if (root->isChar)
     {

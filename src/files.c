@@ -71,7 +71,7 @@ byte * Unarchive(Node * root, byte * archivedBlock,int sizeOfBlock, int sizeOfAr
     {
         acc = buff & (1 << (7 - count)); //Побитовое сложение, выдаст нам единицу, либо ноль
         if (acc)
-            root = root->rigth;
+            root = root->right;
         else
             root = root->left;
         if (root->isChar == true) //Заносим соответсвующие элементы в строку, которая в будущем будет содержать в себе разазхивированные элементы файла
