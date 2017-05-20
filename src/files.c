@@ -10,7 +10,7 @@ void OtputArchivedFile(byte * ArchivedBytes, char * Path, Node * nodes, int numb
     int i = 0;
     byte signa[4] = { 0xAB,0xAD,0xBA,0xBE }; //Вид нашей сигнатуры
     fwrite(signa, 1, 4, file);
-    fwrite(&numberOfNodes, 1, 4, file); //В файл кладется количество узлов для более простой разархивации 
+    fwrite(&numberOfNodes, 1, 4, file); //В файл кладется количество узлов для более простой разархивации
     for (i = 0; i < numberOfNodes; i++) //Записываем символ иего частоту для воссоздания узлов
     {
         fwrite(&nodes->symbol, 1, 1, file);

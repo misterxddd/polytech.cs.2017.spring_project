@@ -95,7 +95,7 @@ byte * GetArchivedBytes(string * table, byte * bytes, int length, int * lengthOf
     int * lengthsOfCodesOfSymbols = (int *)malloc(4 * 256);
     memset(archivedBytes, 0, length);
     string * buff;
-    
+
     for (k = 0; k <= 0xff; k++)
     {
         buff = table + k;

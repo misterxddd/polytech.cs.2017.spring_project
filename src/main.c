@@ -7,6 +7,25 @@
 #include "dynamic_array.h"
 #include "files.h"
 
+/** @file main.c
+*
+@brief Основной файл.
+
+@author Попов Дмитрий - gip840@mail.ru \n
+@author Вачугова Екатерина - vachugova.katya@mail.ru
+*
+*/
+
+/**
+ *
+
+ Это основной цикл нашей программы.
+ Программа считывает файл, проверяет файн на наличие специальной сигнатуры.
+ Если таковая имеется программа начинает процесс разархивации, то если нет, то процесс архивации.
+
+ *
+ */
+
 
 int main(int argc, char * argv[])
 {
@@ -19,7 +38,7 @@ int main(int argc, char * argv[])
 	}
     byte * bytes;
   							     //256 Мб
-    if ((GetSignaHeaderByFile(file) == false) && fileSize <= 268435456) //Проверка на наличие сигнатуры 
+    if ((GetSignaHeaderByFile(file) == false) && fileSize <= 268435456) //Проверка на наличие сигнатуры
     {
         bytes = (byte *)malloc(fileSize); //Выделение памяти под файл
         if (!bytes)
@@ -40,15 +59,15 @@ int main(int argc, char * argv[])
         string * codeTable = CreateCodeOfSymbols(acc4, fileSize); //Функция проходится по дереву и присваиает каждому символу новую кодировку
         byte * archivedBytes = GetArchivedBytes(codeTable, bytes, fileSize, &lengthOfArchivedBytes); //Получаем элементы исходного файла в заархивированном виде
         OtputArchivedFile(archivedBytes, argv[1], root->next, numberOfNodes, lengthOfArchivedBytes); //Запись заарвированных элементов в файл
-	
+
 		printf("Your file is archived\n");
-	    
+
 		//Следующий блок функций создан для очистки памяти
-        free(bytes);					
+        free(bytes);
         free(archivedBytes);
         int i = 0;
         while (acc4)
-        {									
+        {
             acc4 = root->next;
             free(root);
             root = acc4;
@@ -71,13 +90,13 @@ int main(int argc, char * argv[])
         int str = 0; //Длина заархивированного файла без сигнатуры и таблицы
         int strLength = CreateStartNodesByArchived(file,root,&str); //Воссоздание всех узлов дерева
         acc = CreateTree(copyRoot, strLength); //Создание древа
-        byte * data = (byte *)malloc(str); 
+        byte * data = (byte *)malloc(str);
         fseek(file, fileSize - str, SEEK_SET);
         fread(data, 1, str, file);
         byte * buff = (byte *)malloc(strLength); //Выделение памяти под блок с разаархированным файлом
         buff = Unarchive(acc, data, strLength, str); //Процесс разархивации
         fclose(file);
-	    
+
         FILE * file1 = fopen(argv[1], "wb");
         fwrite(buff, 1, strLength, file1); //Запись разархивированных элементов в файл
         fclose(file1);
