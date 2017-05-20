@@ -3,6 +3,14 @@
 #include <string.h>
 #include <stdlib.h>
 
+/** @file dynamic_array.h
+*
+@brief Функции для работы с односвязным списком.
+
+@author Попов Дмитрий - gip840@mail.ru \n
+@author Вачугова Екатерина - vachugova.katya@mail.ru
+*
+*/
 
 string * CreateString(byte * str)
 {

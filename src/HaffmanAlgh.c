@@ -5,6 +5,15 @@
 #include "HaffmanAlgh.h"
 #include "dynamic_array.h"
 
+/** @file HaffmanAlgh.h
+*
+@brief Все функции для работы с узлами древа.
+
+@author Попов Дмитрий - gip840@mail.ru \n
+@author Вачугова Екатерина - vachugova.katya@mail.ru
+*
+*/
+
 Node * CreateNewNode(bool _isChar,bool _isNeed, Node * _left, Node * _right,Node * _next,byte _symbol,int _count)
 {
 	Node * newNode = malloc(sizeof(Node));

@@ -4,6 +4,15 @@
 
 #include "files.h"
 
+/** @file files.c
+*
+@brief Здесь содержатся все функции для работы с файлами.
+
+@author Попов Дмитрий - gip840@mail.ru \n
+@author Вачугова Екатерина - vachugova.katya@mail.ru
+*
+*/
+
 void OtputArchivedFile(byte * ArchivedBytes, char * Path, Node * nodes, int numberOfNodes, int countOfArchivedBytes)
 {
     FILE * file = fopen(Path, "wb"); //Открываем файл для записи
