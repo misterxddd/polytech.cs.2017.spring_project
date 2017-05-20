@@ -19,6 +19,9 @@ TEST_TEAR_DOWN(TestCopyString)
 {
 }
 
+/** \fn TEST(TestCopyString, FromStrToZero)
+ Кладет все элементы из строчки с размером 30 в пустую строку. —равнивает длину строк и первый символ.
+*/
 TEST(TestCopyString, FromStrToZero)
 {
 	int index = 0;
@@ -36,18 +39,21 @@ TEST(TestCopyString, FromStrToZero)
 
 	}
 	string * strTest;
-	
+
 	CopyString(Copyroot, strTest);
 
 	int result1 = 0;
 	result1 = Lenght(strTest);
 	TEST_ASSERT_EQUAL_INT( 30, result1 );
 
-        char result2;
-        result2 = strTest->symbol;
-        TEST_ASSERT_EQUAL_INT( 'B', result2 );
+    char result2;
+    result2 = strTest->symbol;
+    TEST_ASSERT_EQUAL_INT( 'B', result2 );
 }
 
+/** \fn TEST(TestCopyString, FromOneToString)
+ Кладет элемент из единичной строки в строку с размером. —равнивает длину строк и первый символ.
+*/
 TEST(TestCopyString, FromOneToString)
 {
 	int index = 0;
@@ -65,7 +71,7 @@ TEST(TestCopyString, FromOneToString)
 
 	}
 	string * strTest = CreateStringStruct('A', NULL);
-	
+
 	CopyString(strTest, Copyroot);
 
         char result2;
@@ -73,6 +79,9 @@ TEST(TestCopyString, FromOneToString)
         TEST_ASSERT_EQUAL_INT( 'A', result2 );
 }
 
+/** \fn TEST(TestCopyString, FromstringToString)
+ Кладет все элементы из строчки в другую. —равнивает длину строк и первый символ.
+*/
 TEST(TestCopyString, FromstringToString)
 {
 	int index = 0;
@@ -112,5 +121,7 @@ TEST(TestCopyString, FromstringToString)
 
         char result2;
         result2 = Copyroot1->symbol;
-        TEST_ASSERT_EQUAL_INT( 'B', result2 );	
+        TEST_ASSERT_EQUAL_INT( 'B', result2 );
 }
+
+

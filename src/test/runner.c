@@ -1,6 +1,10 @@
 #include "unity.h"
 #include "unity_fixture.h"
 
+/** @file runner.c
+* @brief Функция запуска всех тестов
+*/
+
 static void RunAllTests(void)
 {
     RUN_TEST_GROUP(TestAddToTheEnd);

@@ -17,9 +17,12 @@ TEST_TEAR_DOWN(TestCreateStartNodes)
 {
 }
 
+/** \fn TEST(TestCreateStartNodes, StartNodes)
+ Создает стартовые узлы по двум строчкам. Проверяет количество узлов.
+*/
 TEST(TestCreateStartNodes, StartNodes)
 {
-	Node * root = CreateNewNode(true, true, NULL, NULL, NULL, 'R', INT_MAX);	
+	Node * root = CreateNewNode(true, true, NULL, NULL, NULL, 'R', INT_MAX);
 	char byteArray[10] = "AAABBBBSS";
 	char byteArray1[50] = "AAABBBBSSQWERTYUIOP{}ASDFGHJKL:fZXCVBNM<>?qwertyu";
 	int size = 10;
@@ -29,5 +32,5 @@ TEST(TestCreateStartNodes, StartNodes)
 	TEST_ASSERT_EQUAL_INT( 4, result );
 
 	int result1 = CreateStartNodes(root, byteArray1, size1);
-	TEST_ASSERT_EQUAL_INT( 41, result1 );	
+	TEST_ASSERT_EQUAL_INT( 41, result1 );
 }

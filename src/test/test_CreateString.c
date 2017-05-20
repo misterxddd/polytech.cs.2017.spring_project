@@ -17,10 +17,13 @@ TEST_TEAR_DOWN(TestCreateString)
 {
 }
 
+/** \fn TEST(TestCreateString, FunctionStringOfFour)
+ Проверка на работоспособность разбиени¤ строки на ¤чейки структуры.
+*/
 TEST(TestCreateString, FunctionStringOfFour)
 {
    char str[4] = "lol";
-   
+
    string * sas = CreateString(str);
    char result, result1, result2, result3;
    result = sas->symbol;

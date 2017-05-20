@@ -17,6 +17,9 @@ TEST_TEAR_DOWN(TestCreateTree)
 {
 }
 
+/** \fn TEST(TestCreateTree, LittleTree)
+ Создает небольшое дерево Хаффмана. Проверяет несколько узлов древа.
+*/
 TEST(TestCreateTree, LittleTree)
 {
 	Node * root = CreateNewNode(true, true, NULL, NULL, NULL, 'R', INT_MAX);

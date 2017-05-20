@@ -17,6 +17,10 @@ TEST_TEAR_DOWN(TestAddToTheEnd)
 {
 }
 
+
+/** \fn TEST(TestAddToTheEnd, FunctionLastSymbol)
+ Проверяет добавился ли новый элемент в конец списка путем сравнивания длины. Проверяет какой символ лежит в последней ячейке.
+*/
 TEST(TestAddToTheEnd, FunctionLastSymbol)
 {
    int index = 0;
@@ -32,11 +36,11 @@ TEST(TestAddToTheEnd, FunctionLastSymbol)
       index++;
 
    }
-   
+
    int StartSize = Lenght(Copyroot);
 
    AddToTheEnd(Copyroot, 'A');
-   
+
    int result1 = 0;
    result1 = Lenght(Copyroot);
    TEST_ASSERT_EQUAL_INT( StartSize + 1, result1 );

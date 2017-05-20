@@ -17,6 +17,10 @@ TEST_TEAR_DOWN(TestClearString)
 {
 }
 
+
+/** \fn TEST(TestClearString, NullString)
+ Функция очищает список. Сравнивается длина строки и проверяется наличие первой ячейки с символом.
+*/
 TEST(TestClearString, NullString)
 {
    	int index = 0;
@@ -33,15 +37,15 @@ TEST(TestClearString, NullString)
 		index++;
 
 	}
-   
-	ClearString(Copyroot);
-	
-	int result = 0;
-        result = Lenght(Copyroot);
-        TEST_ASSERT_EQUAL_INT( 1, result );
 
-        char result2;
-        result2 = Copyroot->symbol;
-        TEST_ASSERT_EQUAL_INT( 'B', result2 );	
+	ClearString(Copyroot);
+
+	int result = 0;
+    result = Lenght(Copyroot);
+    TEST_ASSERT_EQUAL_INT( 1, result );
+
+    char result2;
+    result2 = Copyroot->symbol;
+    TEST_ASSERT_EQUAL_INT( 'B', result2 );
 
 }

@@ -18,17 +18,23 @@ TEST_TEAR_DOWN(TestLenght)
 {
 }
 
+/** \fn TEST(TestLenght, LenghtOfTwo)
+ Находит длину двух ячеек.
+*/
 TEST(TestLenght, LenghtOfTwo)
 {
    string * str1 = CreateStringStruct('A', NULL);
 
    str1->next = CreateStringStruct('B', NULL);
-   
+
    int result = 0;
    result = Lenght(str1);
    TEST_ASSERT_EQUAL_INT( 2, result );
 }
 
+/** \fn TEST(TestLenght, LenghtOfString)
+ Преобразует строку в узлы и проверяет длину.
+*/
 TEST(TestLenght, LenghtOfString)
 {
 	int index = 0;
@@ -45,9 +51,9 @@ TEST(TestLenght, LenghtOfString)
 		index++;
 
 	}
-        int result = 0;
-        result = Lenght(Copyroot);
-        TEST_ASSERT_EQUAL_INT( 30, result );
+    int result = 0;
+    result = Lenght(Copyroot);
+    TEST_ASSERT_EQUAL_INT( 30, result );
 }
 
 
