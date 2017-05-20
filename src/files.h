@@ -13,7 +13,7 @@
 
 /** \fn void OtputArchivedFile(byte * _ArchivedBytes, char * _Path, Node * _table, int _numberOfNodes, int _countOfArchivedBytes)
 *
-### Функция кладет заархивированные элементы в файл.
+ Функция кладет заархивированные элементы в файл.
 \param[in] ArchivedBytes Заархивированные элементы.
 \param[in] Path Путь к файлу.
 \param[in] table Узлы Дерева Хаффмана.
@@ -21,21 +21,26 @@
 \param[in] countOfArchivedBytes Размер заархивированного файла.
 *
 */
-void OtputArchivedFile(byte * _ArchivedBytes, char * _Path, Node * _table, int _numberOfNodes, int _countOfArchivedBytes); //Функция кладет заархивированные элементы в файл
+void OtputArchivedFile(byte * _ArchivedBytes, char * _Path, Node * _table, int _numberOfNodes, int _countOfArchivedBytes);
 
 /** \fn CreateStartNodesByArchived(FILE * _file, Node * _root, int * _counter)
 *
-### Воссоздает узлы дерева, при помощи таблицы, лежащей в начале файла. Таблица лежит сразу после сигнатуры.
+ Воссоздает узлы дерева, при помощи таблицы, лежащей в начале файла. Таблица лежит сразу после сигнатуры.
 \param[in] file Исходный файл.
 \param[in] root Начальный узел.
 \param[out] counter Длина заархивированного файла без сигнатуры и таблицы.
+
+\return Длину незаархивированного файла.
 *
 */
-int CreateStartNodesByArchived(FILE * _file, Node * _root, int * _counter); //Воссоздание узлов
+int CreateStartNodesByArchived(FILE * _file, Node * _root, int * _counter);
 
 /** \fn GetSignaHeaderByFile(FILE * _file)
 *
-### Проверяет файл на наличие специальной сигнатуры.
+ Проверяет файл на наличие специальной сигнатуры.
+
+\param[in] file Исходный файл.
+
 \return Возвращает информацию о том, заархивирован ли файл.
 *
 */
@@ -43,18 +48,24 @@ bool GetSignaHeaderByFile(FILE * _file); //Проверка на наличие 
 
 /** \fn byte * Unarchive(Node * _root, byte * _archivedBlock, int _sizeOfBlock, int _sizeOfArchived)
 *
-### Процесс разархивации файла.
+ Процесс разархивации файла.
 \param[in] root Цепочка из всех узлов.
 \param[in] archivedBlock Заархивированный блок элементов файла.
 \param[in] sizeOfBlock Размер разархивированного файла.
 \param[in] sizeOfArchived Длина заархивированного файла.
+
+\return Разархивированные элементы файла.
 *
 */
-byte * Unarchive(Node * _root, byte * _archivedBlock, int _sizeOfBlock, int _sizeOfArchived); //Процесс разархивации
+byte * Unarchive(Node * _root, byte * _archivedBlock, int _sizeOfBlock, int _sizeOfArchived);
 
 /** \fn int GetFileSize(FILE * _file)
 *
-### Функция вычисляет размер файла.
+ Функция вычисляет размер файла.
+
+\param[in] file Файл.
+
+\return Длину файла.
 *
 */
 int GetFileSize(FILE * _file); //Вычисление размера файла

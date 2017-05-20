@@ -1,5 +1,14 @@
 #pragma once
 
+/** @file typedefs.h
+*
+@brief Файл, содержащий в себе набор констант.
+
+@author Попов Дмитрий - gip840@mail.ru \n
+@author Вачугова Екатерина - vachugova.katya@mail.ru
+*
+*/
+
 typedef int bool;
 typedef int direction;
 #define true 1
