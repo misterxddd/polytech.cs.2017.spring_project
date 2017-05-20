@@ -5,10 +5,10 @@
 
 /** @file dynamic_array.h
 *
-@brief Функции для работы с односвязным списком.
+@brief Р¤СѓРЅРєС†РёРё РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РѕРґРЅРѕСЃРІСЏР·РЅС‹Рј СЃРїРёСЃРєРѕРј.
 
-@author Попов Дмитрий - gip840@mail.ru \n
-@author Вачугова Екатерина - vachugova.katya@mail.ru
+@author РџРѕРїРѕРІ Р”РјРёС‚СЂРёР№ - gip840@mail.ru \n
+@author Р’Р°С‡СѓРіРѕРІР° Р•РєР°С‚РµСЂРёРЅР° - vachugova.katya@mail.ru
 *
 */
 
