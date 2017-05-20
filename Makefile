@@ -1,19 +1,21 @@
 SHELL = /bin/sh
 
-PROJECT  := AlghHuff
+PROJECT  := Algh_Huffman
 
 # ------------------
 # External programs
 # ------------------
 CC  := gcc
 RM  := rm -rf
+DG  := doxygen
 
 # --------------------
 # Directories & Files
 # --------------------
 D_SRC    := ./src
-D_TESTS  := $(D_SRC)/test
-D_UNITY  := 
+D_TESTS  := $(D_SRC)/tests
+D_DOC    := ./doc
+D_UNITY  :=
 
 ENTRY_POINT := $(D_SRC)/main.c
 
@@ -27,15 +29,18 @@ PROJECT_WITHOUT_TESTS_O  := $(PROJECT_WITHOUT_TESTS:.c=.o)
 PROJECT_WITH_TESTS_O  := $(PROJECT_WITH_TESTS:.c=.o)
 
 # ------------
-# Flags 
+
+# Flags
 # ------------
 CFLAGS  := -Wall
 CFLAGS  += -std=c99
 LFLAGS  :=
 
+
 INCS := -I $(D_UNITY)/src -I $(D_UNITY)/extras/fixture/src 
 # ------------
-# Targets 
+
+# Targets
 # ------------
 default: $(PROJECT)
 
@@ -53,7 +58,17 @@ $(PROJECT): $(PROJECT_WITHOUT_TESTS_O)
 test-$(PROJECT): $(PROJECT_WITH_TESTS_O)
 	$(CC) -I $(D_SRC) $(LFLAGS) $(PROJECT_WITH_TESTS_O) -o $@ $(INCS) 
 
+.phony: doxygen
+doxygen:
+	$(DG) $(D_DOC)/doxygen.config
+
+.phony: html
+html: doxygen
+
+.phony: pdf
+pdf: doxygen
+	make -C $(D_DOC)/output/latex
+
 .phony:	clean
 clean:
-	-$(RM) $(PROJECT_WITH_TESTS_O) $(D_SRC)/main.o $(PROJECT) test-$(PROJECT)
-
+	-$(RM) $(PROJECT_WITH_TESTS_O) $(D_SRC)/main.o $(PROJECT) test-$(PROJECT) $(D_DOC)/output

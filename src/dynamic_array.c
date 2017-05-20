@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-/** @file dynamic_array.h
+/** @file dynamic_array.c
 *
 @brief Функции для работы с односвязным списком.
 

@@ -5,7 +5,7 @@
 #include "HaffmanAlgh.h"
 #include "dynamic_array.h"
 
-/** @file HaffmanAlgh.h
+/** @file HaffmanAlgh.c
 *
 @brief Все функции для работы с узлами древа.
 
