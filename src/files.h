@@ -44,7 +44,7 @@ int CreateStartNodesByArchived(FILE * _file, Node * _root, int * _counter);
 \return Возвращает информацию о том, заархивирован ли файл.
 *
 */
-bool GetSignaHeaderByFile(FILE * _file); //Проверка на наличие сигнатуры
+bool GetSignaHeaderByFile(FILE * _file);
 
 /** \fn byte * Unarchive(Node * _root, byte * _archivedBlock, int _sizeOfBlock, int _sizeOfArchived)
 *
@@ -68,4 +68,4 @@ byte * Unarchive(Node * _root, byte * _archivedBlock, int _sizeOfBlock, int _siz
 \return Длину файла.
 *
 */
-int GetFileSize(FILE * _file); //Вычисление размера файла
+int GetFileSize(FILE * _file);
