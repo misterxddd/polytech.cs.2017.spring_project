@@ -1,4 +1,6 @@
-#pragma once
+#ifndef HAFFMANALGH_H
+#define HAFFMANALGH_H
+
 #include "dynamic_array.h"
 #include "typedefs.h"
 
@@ -107,3 +109,5 @@ void BuildTable(Node * _root, string * _str, string * _buff);
 *
 */
 int CreateStartNodes(Node * _root, byte * _byteArray, int _size);
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TYPEDEF_H
+#define TYPEDEF_H
 
 /** @file typedefs.h
 *
@@ -15,3 +16,5 @@ typedef int bool;
 #define RIGHT 1
 #define LEFT 0
 typedef unsigned char byte;
+
+#endif

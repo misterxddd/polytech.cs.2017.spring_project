@@ -26,7 +26,7 @@
 
 int main(int argc, char * argv[])
 {
-    FILE * file = fopen(argv[1], "rb"); //Открываем файл
+	FILE * file = fopen(argv[1], "rb"); //Открываем файл
     int fileSize = GetFileSize(file);
 	if (fileSize == 0) //Проверка файла
 	{
@@ -69,6 +69,7 @@ int main(int argc, char * argv[])
             free(root);
             root = acc4;
         }
+		free(root);
         for (i = 0; i < 256; i++)
         {
             ClearString(codeTable + i);
@@ -92,7 +93,8 @@ int main(int argc, char * argv[])
         fseek(file, fileSize - str, SEEK_SET);
         fread(data, 1, str, file);
         byte * buff = (byte *)malloc(strLength); //Выделение памяти под блок с разаархированным файлом
-        buff = Unarchive(acc, data, strLength, str); //Процесс разархивации
+		memset(buff, 0, strLength);
+        Unarchive(acc, data, strLength, str, buff); //Процесс разархивации
         fclose(file);
 
         FILE * file1 = fopen(argv[1], "wb");
@@ -101,8 +103,15 @@ int main(int argc, char * argv[])
 
 		printf("Now this file is unachived");
 
-		free(buff);
 		free(data);
+		while (acc)
+		{
+			acc = root->next;
+			free(root);
+			root = acc;
+		}
+		free(root);
+		free(buff);
     }
 	return 0;
 }

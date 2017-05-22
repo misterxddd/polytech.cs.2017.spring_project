@@ -1,4 +1,6 @@
-#pragma once
+#ifndef FILES_H
+#define FILES_H
+
 #include "dynamic_array.h"
 #include "HaffmanAlgh.h"
 
@@ -60,7 +62,7 @@ bool GetSignaHeader(FILE * _file);
 \return Разархивированные элементы файла.
 *
 */
-byte * Unarchive(Node * _root, byte * _archivedBlock, int _sizeOfBlock, int _sizeOfArchived);
+void Unarchive(Node * _root, byte * _archivedBlock, int _sizeOfBlock, int _sizeOfArchived,byte * _str);
 
 /** \fn int GetFileSize(FILE * _file)
 *
@@ -72,3 +74,5 @@ byte * Unarchive(Node * _root, byte * _archivedBlock, int _sizeOfBlock, int _siz
 *
 */
 int GetFileSize(FILE * _file);
+
+#endif

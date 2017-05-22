@@ -67,17 +67,18 @@ int CreateAchivedNodes(FILE * file, Node * root, int * counter) //Воссозд
     return strLength;
 }
 
-byte * Unarchive(Node * root, byte * archivedBlock,int sizeOfBlock, int sizeOfArchived)
+void Unarchive(Node * root, byte * archivedBlock,int sizeOfBlock, int sizeOfArchived, byte * str)
 {
-    byte * str = (byte *)malloc(sizeOfBlock); //Выделяем память под разархивированные элементы файла
+   //Выделяем память под разархивированные элементы файла
     Node * copyRoot = root;
     int count = 0;
     int index1 = 0;
     int index2 = 0;
+	int controlIndex = 0;
     byte buff = archivedBlock[index1]; //Заархивированный файл
     byte acc;
 
-    while(index1 != sizeOfArchived) //Проходимся по всему файлу
+    while(true) //Проходимся по всему файлу
     {
         acc = buff & (1 << (7 - count)); //Побитовое сложение, выдаст нам единицу, либо ноль
         if (acc)
@@ -89,14 +90,16 @@ byte * Unarchive(Node * root, byte * archivedBlock,int sizeOfBlock, int sizeOfAr
             str[index2] = root->symbol;
             index2++;
             root = copyRoot;
+			controlIndex++;
+			if (controlIndex == sizeOfBlock)
+				return;
         }
         count++;
-        if (count == 8) // 1 байт = 8 битам, поэтому как только количество байт достигло 8, мы обнуляем count и переходим к следующему байту
+        if (count == 8) // 1 байт = 8 битам, поэтому как только количество бит достигло 8, мы обнуляем count и переходим к следующему байту
         {
             count = 0;
             index1++;
             buff = archivedBlock[index1];
         }
     }
-    return str;
 }
