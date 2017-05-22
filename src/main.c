@@ -37,7 +37,7 @@ int main(int argc, char * argv[])
 		return 0;
 	}
     byte * bytes;
-  							     //256 Мб
+  							                                 //256 Мб
     if ((GetSignaHeaderByFile(file) == false) && fileSize <= 268435456) //Проверка на наличие сигнатуры
     {
         bytes = (byte *)malloc(fileSize); //Выделение памяти под файл

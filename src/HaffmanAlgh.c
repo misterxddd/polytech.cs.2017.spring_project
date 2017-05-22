@@ -163,5 +163,5 @@ void BuildTable(Node * root, string * str, string * code)
     {
         CopyString(code->next, str + *(byte *)(&root->symbol));
     }
-        DeleteLast(code);
+    DeleteLast(code);
 }

@@ -52,7 +52,7 @@ Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _right, No
 
 /** \fn Node * CreateTree(Node * _root, int _arraySize)
 *
- Создание древа Хаффмана. \n Функция работает следующим образом: СРеди всех узлов выбираются два наименьших, объединяются в единый новый узел, а этот узел кладется в конец списка. Функция продолжает работать пока не найдет конечный узел.
+ Создание древа Хаффмана. 
 \param[in] arraySize Размер исходного файла.
 \param[in] root Начальный узел.
 
@@ -74,7 +74,7 @@ string * CreateCodeOfSymbols(Node * _root, int _strLen);
 
 /** \fn byte * GetArchivedBytes(string * _table, byte * _bytes, int _length, int * _lengthOfArchivedBytes)
 *
- Получение раархивированных элементов файла.
+ Получение заархивированных элементов файла.
 
 \param[in] table Массив, содержащий в себе новую кодировку каждого символа.
 \param[in] bytes Элементы исходного файла.

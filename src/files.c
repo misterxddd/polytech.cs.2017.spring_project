@@ -20,7 +20,7 @@ void OtputArchivedFile(byte * ArchivedBytes, char * Path, Node * nodes, int numb
     byte signa[4] = { 0xAB,0xAD,0xBA,0xBE }; //Вид нашей сигнатуры
     fwrite(signa, 1, 4, file);
     fwrite(&numberOfNodes, 1, 4, file); //В файл кладется количество узлов для более простой разархивации
-    for (i = 0; i < numberOfNodes; i++) //Записываем символ иего частоту для воссоздания узлов
+    for (i = 0; i < numberOfNodes; i++) //Записываем символ и его частоту для воссоздания узлов
     {
         fwrite(&nodes->symbol, 1, 1, file);
         fwrite(&nodes->count, 1, 4, file);
@@ -58,7 +58,7 @@ int CreateStartNodesByArchived(FILE * file, Node * root, int * counter) //Вос
     for (i = 0; i < countOfNodes; i++)
     {
         fread(buff, 1, 5, file); //Считываем 5 байт (4 байта - частота, 1 - сам символ)
-        root->next = CreateNewNode(true, true, NULL, NULL, NULL, buff[0], *(int *)(buff + 1)); //Создаем узлы другза другом
+        root->next = CreateNewNode(true, true, NULL, NULL, NULL, buff[0], *(int *)(buff + 1)); //Создаем узлы друг за другом
         strLength += *(int *)(buff + 1); //Длина всех нодов
         root = root->next;
     }
