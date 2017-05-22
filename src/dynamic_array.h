@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DYNAMICARRAY_H
+#define DYNAMICARRAY_H
+
 #include "typedefs.h"
 /** @file dynamic_array.h
 *
@@ -122,3 +124,5 @@ char GetByIndex(string * _str, int _index);
 *
 */
 void DeleteString(string * str);
+
+#endif
