@@ -16,7 +16,7 @@ string * CreateString(byte * str)
 {
 	int size = 0;
 	int index = 0;
-	size = strlen(str);
+	size = strlen((const char *)str);
 	if (size == 0)
 		return CreateStringStruct(0, NULL);
 	string * root = CreateStringStruct(str[0], NULL);
@@ -39,7 +39,6 @@ string * CreateStringStruct(byte symbol, string * next)
 	return root;
 }
 
-
 int Lenght(string * str)
 {
 	int count = 0;
@@ -51,7 +50,7 @@ int Lenght(string * str)
 	return count;
 }
 
-void AddToTheEnd(string * str, byte symbol)
+void AddToEnd(string * str, byte symbol)
 {
 	string * acc = NULL;
 	while (str)
@@ -78,12 +77,11 @@ void DeleteLast(string * str)
 			acc1->next = NULL;
 			break;
 		}
+		else {};
 		acc1 = acc1->next;
 	}
 	free(acc);
 }
-
-
 
 void ClearString(string * str)
 {
@@ -121,7 +119,6 @@ void CopyString(string * str1, string * str2)
 	}
 }
 
-
 char GetByIndex(string * str, int index)
 {
     int count = 0;
@@ -129,9 +126,11 @@ char GetByIndex(string * str, int index)
     {
         if (count == index)
             return str->symbol;
+		else {};
         count++;
         str = str->next;
     }
+	return 0;
 }
 
 void DeleteString(string * str)

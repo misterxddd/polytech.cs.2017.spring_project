@@ -13,7 +13,7 @@
 *
 */
 
-void OtputArchivedFile(byte * ArchivedBytes, char * Path, Node * nodes, int numberOfNodes, int countOfArchivedBytes)
+void OtputArchivedFile(byte * ArchivedBytes, char * Path, Node * nodes, int numberOfNodes, int lengthArchivedBytes)
 {
     FILE * file = fopen(Path, "wb"); //Открываем файл для записи
     int i = 0;
@@ -26,7 +26,7 @@ void OtputArchivedFile(byte * ArchivedBytes, char * Path, Node * nodes, int numb
         fwrite(&nodes->count, 1, 4, file);
         nodes = nodes->next;
     }
-    fwrite(ArchivedBytes, 1, countOfArchivedBytes, file); //Кладем заархивированные элементы
+    fwrite(ArchivedBytes, 1, lengthArchivedBytes, file); //Кладем заархивированные элементы
     fclose(file);
 }
 
@@ -38,16 +38,17 @@ int GetFileSize(FILE * file) //Получение размера файла
     return fsize;
 }
 
-bool GetSignaHeaderByFile(FILE * file) //Проверка на сигнатуру
+bool GetSignaHeader(FILE * file) //Проверка на сигнатуру
 {
     byte signa[4];
     fread(signa, 1, 4, file);
     if ((signa[0] == 0xAB) && (signa[1] == 0xAD) && (signa[2] == 0xBA) && (signa[3] == 0xBE))
         return true;
-    return false;
+    else 
+		return false;
 }
 
-int CreateStartNodesByArchived(FILE * file, Node * root, int * counter) //Воссоздание узлов
+int CreateAchivedNodes(FILE * file, Node * root, int * counter) //Воссоздание узлов
 {
     int countOfNodes = 0;
     int strLength = 0;
