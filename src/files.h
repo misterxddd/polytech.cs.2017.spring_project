@@ -58,11 +58,12 @@ bool GetSignaHeader(FILE * _file);
 \param[in] archivedBlock Заархивированный блок элементов файла.
 \param[in] sizeOfBlock Размер разархивированного файла.
 \param[in] sizeOfArchived Длина заархивированного файла.
+\param[in] str Блок с разархивированными файлами.
 
 \return Разархивированные элементы файла.
 *
 */
-void Unarchive(Node * _root, byte * _archivedBlock, int _sizeOfBlock, int _sizeOfArchived,byte * _str);
+void Unarchive(Node * _root, byte * _archivedBlock, int _sizeOfBlock, int _sizeOfArchived, byte * _str);
 
 /** \fn int GetFileSize(FILE * _file)
 *

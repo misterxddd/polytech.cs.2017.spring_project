@@ -2,6 +2,7 @@
 #define DYNAMICARRAY_H
 
 #include "typedefs.h"
+
 /** @file dynamic_array.h
 *
 @brief Заголовочный файл, в котором хранятся определения функций, связанных со структурой "pop".
@@ -27,8 +28,8 @@
 */
 typedef struct pop
 {
-	byte symbol; //!< Символ, лежащий в ячейки односвязного списка
-	struct pop * next; //!< Параметр, указывающий на следующий элемент в цепочке
+    byte symbol; //!< Символ, лежащий в ячейки односвязного списка
+    struct pop * next; //!< Параметр, указывающий на следующий элемент в цепочке
 }string;
 
 /** \fn string * CreateString(byte * _str)

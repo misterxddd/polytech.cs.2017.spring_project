@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 #include "files.h"
 
@@ -16,6 +17,7 @@
 void OtputArchivedFile(byte * ArchivedBytes, char * Path, Node * nodes, int numberOfNodes, int lengthArchivedBytes)
 {
     FILE * file = fopen(Path, "wb"); //Открываем файл для записи
+    assert(file != NULL);
     int i = 0;
     byte signa[4] = { 0xAB,0xAD,0xBA,0xBE }; //Вид нашей сигнатуры
     fwrite(signa, 1, 4, file);
@@ -45,7 +47,7 @@ bool GetSignaHeader(FILE * file) //Проверка на сигнатуру
     if ((signa[0] == 0xAB) && (signa[1] == 0xAD) && (signa[2] == 0xBA) && (signa[3] == 0xBE))
         return true;
     else 
-		return false;
+        return false;
 }
 
 int CreateAchivedNodes(FILE * file, Node * root, int * counter) //Воссоздание узлов
@@ -71,10 +73,11 @@ void Unarchive(Node * root, byte * archivedBlock,int sizeOfBlock, int sizeOfArch
 {
    //Выделяем память под разархивированные элементы файла
     Node * copyRoot = root;
+    assert(copyRoot != NULL);
     int count = 0;
     int index1 = 0;
     int index2 = 0;
-	int controlIndex = 0;
+    int controlIndex = 0;
     byte buff = archivedBlock[index1]; //Заархивированный файл
     byte acc;
 
@@ -90,9 +93,9 @@ void Unarchive(Node * root, byte * archivedBlock,int sizeOfBlock, int sizeOfArch
             str[index2] = root->symbol;
             index2++;
             root = copyRoot;
-			controlIndex++;
-			if (controlIndex == sizeOfBlock)
-				return;
+            controlIndex++;
+            if (controlIndex == sizeOfBlock)
+                return;
         }
         count++;
         if (count == 8) // 1 байт = 8 битам, поэтому как только количество бит достигло 8, мы обнуляем count и переходим к следующему байту
@@ -101,5 +104,6 @@ void Unarchive(Node * root, byte * archivedBlock,int sizeOfBlock, int sizeOfArch
             index1++;
             buff = archivedBlock[index1];
         }
+
     }
 }

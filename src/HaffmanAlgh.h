@@ -28,13 +28,13 @@
 */
 typedef struct vertexx
 {
-	bool isChar; //!< Параметр, который сообщает о том, лежит ли в узле символ
-	bool isNeed; //!< Значение параметра говорит нужел ли в данный момент этот узед
-	struct vertexx * left; //!< Узел, лежащий слева от текущего
-	struct vertexx * right; //!< Узел, находящийся после текущего
-	struct vertexx * next; //!< Узел, лежащий справа от текущего
-	byte symbol; //!< Символ, который лежит в узле
-	int count; //!< Частота встречи данного символа в файле
+    bool isChar; //!< Параметр, который сообщает о том, лежит ли в узле символ
+    bool isNeed; //!< Значение параметра говорит нужел ли в данный момент этот узед
+    struct vertexx * left; //!< Узел, лежащий слева от текущего
+    struct vertexx * right; //!< Узел, находящийся после текущего
+    struct vertexx * next; //!< Узел, лежащий справа от текущего
+    byte symbol; //!< Символ, который лежит в узле
+    int count; //!< Частота встречи данного символа в файле
 }Node;
 
 /** \fn Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _right, Node * _next, byte _symbol, int _count);
