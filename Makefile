@@ -1,11 +1,11 @@
 SHELL = /bin/sh
 
-PROJECT  := Algh_Huffman
+PROJECT  := AlghHuff
 
 # ------------------
 # External programs
 # ------------------
-CC  := gcc
+CC  := gcc 
 RM  := rm -rf
 DG  := doxygen
 
@@ -13,7 +13,7 @@ DG  := doxygen
 # Directories & Files
 # --------------------
 D_SRC    := ./src
-D_TESTS  := $(D_SRC)/tests
+D_TESTS  := $(D_SRC)/test
 D_DOC    := ./doc
 D_UNITY  :=
 
@@ -38,6 +38,7 @@ LFLAGS  :=
 
 
 INCS := -I $(D_UNITY)/src -I $(D_UNITY)/extras/fixture/src 
+
 # ------------
 
 # Targets
@@ -56,7 +57,7 @@ $(PROJECT): $(PROJECT_WITHOUT_TESTS_O)
 	$(CC) -I $(D_SRC) $(LFLAGS) $(PROJECT_WITHOUT_TESTS_O) -o  $@ 
 
 test-$(PROJECT): $(PROJECT_WITH_TESTS_O)
-	$(CC) -I $(D_SRC) $(LFLAGS) $(PROJECT_WITH_TESTS_O) -o $@ $(INCS) 
+	$(CC) -I $(D_SRC) $(LFLAGS) $(PROJECT_WITH_TESTS_O) -o $@ 
 
 .phony: doxygen
 doxygen:
@@ -68,7 +69,6 @@ html: doxygen
 .phony: pdf
 pdf: doxygen
 	make -C $(D_DOC)/output/latex
-
 .phony:	clean
 clean:
 	-$(RM) $(PROJECT_WITH_TESTS_O) $(D_SRC)/main.o $(PROJECT) test-$(PROJECT) $(D_DOC)/output
