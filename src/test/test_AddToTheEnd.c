@@ -39,7 +39,7 @@ TEST(TestAddToTheEnd, FunctionLastSymbol)
 
    int StartSize = Lenght(Copyroot);
 
-   AddToTheEnd(Copyroot, 'A');
+   AddToEnd(Copyroot, 'A');
 
    int result1 = 0;
    result1 = Lenght(Copyroot);
