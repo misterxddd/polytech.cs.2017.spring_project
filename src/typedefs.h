@@ -16,5 +16,6 @@ typedef int bool;
 #define RIGHT 1
 #define LEFT 0
 typedef unsigned char byte;
+#define SIZE_OF_BLOCK 268435456
 
 #endif

@@ -16,11 +16,13 @@
 
 void OtputArchivedFile(byte * ArchivedBytes, char * Path, Node * nodes, int numberOfNodes, int lengthArchivedBytes)
 {
-    FILE * file = fopen(Path, "wb"); //Открываем файл для записи
+    FILE * file = fopen(Path, "ab"); //Открываем файл для записи
     assert(file != NULL);
     int i = 0;
     byte signa[4] = { 0xAB,0xAD,0xBA,0xBE }; //Вид нашей сигнатуры
     fwrite(signa, 1, 4, file);
+    int offset = numberOfNodes * 5 + lengthArchivedBytes + 12;
+    fwrite(&offset, 1, 4, file);
     fwrite(&numberOfNodes, 1, 4, file); //В файл кладется количество узлов для более простой разархивации
     for (i = 0; i < numberOfNodes; i++) //Записываем символ и его частоту для воссоздания узлов
     {
@@ -50,12 +52,13 @@ bool GetSignaHeader(FILE * file) //Проверка на сигнатуру
         return false;
 }
 
-int CreateAchivedNodes(FILE * file, Node * root, int * counter) //Воссоздание узлов
+int CreateAchivedNodes(FILE * file, Node * root, int * counter, int offset) //Воссоздание узлов
 {
     int countOfNodes = 0;
     int strLength = 0;
     int i = 0;
     fread(&countOfNodes, 1, 4, file); //Считываем количество узлов
+
     byte buff[5]; //Строка, которая будет содержать в себе символ и его частоту
 
     for (i = 0; i < countOfNodes; i++)
@@ -65,13 +68,12 @@ int CreateAchivedNodes(FILE * file, Node * root, int * counter) //Воссозд
         strLength += *(int *)(buff + 1); //Длина всех нодов
         root = root->next;
     }
-    *counter = GetFileSize(file) - (5 * countOfNodes) - 8; //MAGIIIC //Получаем файл без сигнатуры и узлов
+    *counter = offset - (5 * countOfNodes) - 12; //MAGIIIC //Получаем файл без сигнатуры и узлов
     return strLength;
 }
 
 void Unarchive(Node * root, byte * archivedBlock,int sizeOfBlock, int sizeOfArchived, byte * str)
 {
-   //Выделяем память под разархивированные элементы файла
     Node * copyRoot = root;
     assert(copyRoot != NULL);
     int count = 0;

@@ -21,7 +21,7 @@
 \param[in] Path Путь к файлу.
 \param[in] table Узлы Дерева Хаффмана.
 \param[in] numberOfNodes Количество узлов.
-\param[in] countOfArchivedBytes Размер заархивированного файла.
+\param[in] countOfArchivedBytes Размер заархивированного блока.
 *
 */
 void OtputArchivedFile(byte * _ArchivedBytes, char * _Path, Node * _table, int _numberOfNodes, int _countOfArchivedBytes);
@@ -32,12 +32,13 @@ void OtputArchivedFile(byte * _ArchivedBytes, char * _Path, Node * _table, int _
 
 \param[in] file Исходный файл.
 \param[in] root Начальный узел.
+\param[in] offset Длина одного блока.
 \param[out] counter Длина заархивированного файла без сигнатуры и таблицы.
 
 \return Длину незаархивированного файла.
 *
 */
-int CreateAchivedNodes(FILE * _file, Node * _root, int * _counter);
+int CreateAchivedNodes(FILE * _file, Node * _root, int * _counter, int _offset);
 
 /** \fn GetSignaHeader(FILE * _file)
 *
@@ -55,9 +56,9 @@ bool GetSignaHeader(FILE * _file);
 Процесс разархивации файла.
 
 \param[in] root Цепочка из всех узлов.
-\param[in] archivedBlock Заархивированный блок элементов файла.
-\param[in] sizeOfBlock Размер разархивированного файла.
-\param[in] sizeOfArchived Длина заархивированного файла.
+\param[in] archivedBlock Заархивированный блок элементов части файла.
+\param[in] sizeOfBlock Размер разархивированного блока файла.
+\param[in] sizeOfArchived Длина заархивированного блока файла.
 \param[in] str Блок с разархивированными файлами.
 
 \return Разархивированные элементы файла.

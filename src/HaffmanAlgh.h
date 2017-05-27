@@ -52,7 +52,7 @@ Node * CreateNewNode(bool _isChar, bool _isNeed, Node * _left, Node * _right, No
 *
 Создание древа Хаффмана.
 
-\param[in] arraySize Размер исходного файла.
+\param[in] arraySize Размер блока.
 \param[in] root Начальный узел.
 
 \return Дерево Хаффмана.
@@ -64,7 +64,7 @@ Node * CreateTree(Node * _root, int _arraySize);
 *
 Присваение новой кодировки каждому символу.
 
-\param[in] strLen Размер исходного файла.
+\param[in] strLen Размер блока.
 \param[in] root Начальный узел.
 
 \return Возвращает массив, в котором лежит новая кодировка каждого символа
@@ -78,7 +78,7 @@ string * CreateCodeSymbols(Node * _root, int _strLen);
 
 \param[in] table Массив, содержащий в себе новую кодировку каждого символа.
 \param[in] bytes Элементы исходного файла.
-\param[in] lenght Размер исходного файла.
+\param[in] lenght Размер блока.
 \param[out] lengthArchivedBytes Размер заархивированного файла.
 
 \return Заархивированные элементы файла.
@@ -103,7 +103,7 @@ void BuildTable(Node * _root, string * _str, string * _buff);
 
 \param[in] root Узел, с которого все начинается.
 \param[in] byteArray  Элементы файла, из которых мы и создаем узлы.
-\param[in] size Длина исходного файла.
+\param[in] size Длина блока.
 
 \return Количество узлов древа.
 *

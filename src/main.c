@@ -27,98 +27,148 @@
 
 int main(int argc, char * argv[])
 {
-    FILE * file = fopen(argv[1], "rb"); //Открываем файл
+    char * path = argv[1];
+   
+    FILE * file = fopen(path, "rb"); //Открываем файл
     if (file == NULL)
         printf("This file isn't detected or his size equals zero");
-    int fileSize = GetFileSize(file);
+
+    unsigned long long fileSize = GetFileSize(file);
+    
     byte * bytes;
-  							                                 //256 Мб
-    if ((GetSignaHeader(file) == false) && fileSize <= 268435456) //Проверка на наличие сигнатуры
+  							                                 
+    if (GetSignaHeader(file) == false)
     {
-        bytes = (byte *)malloc(fileSize); //Выделение памяти под файл
-        if (!bytes)
+        int countOfParts;
+        int sizeOfBlock;
+        int i;
+        if (fileSize <= SIZE_OF_BLOCK)
         {
-            printf("Your computer is very bad!\n");
-            return 0;
+            countOfParts = 1;
+            sizeOfBlock = (int)fileSize;
+        }
+        else
+        {
+            countOfParts = fileSize / SIZE_OF_BLOCK;
+            if (fileSize % SIZE_OF_BLOCK != 0)
+                countOfParts++;
+            sizeOfBlock = SIZE_OF_BLOCK;
         }
         rewind(file);
-        fread(bytes, 1, fileSize, file); //Запись всех элементов файла в память
-        fclose(file);
+        int sizeOfWay = strlen(path);
+        char * path1 = (char *)malloc(sizeOfWay + 5);
+        strcpy(path1, path);
+        strcat(path1, ".huff");
 
-        int numberOfNodes = 0; //Количество узлов дерева
-        int lengthArchivedBytes = 0; //Размер заархивированного файла
-        Node * root = CreateNewNode(true, true, NULL, NULL, NULL, 'R', INT_MAX); //Начальный узел
-        assert(root != NULL);
-        numberOfNodes = CreateStartNodes(root, bytes, fileSize); //Функция создает узлы и возвращает их кол-во
-
-        Node * acc4 = CreateTree(root, fileSize); //Создание дерева
-        assert(acc4 != NULL);
-        string * codeTable = CreateCodeSymbols(acc4, fileSize); //Функция проходится по дереву и присваиает каждому символу новую кодировку
-        assert(codeTable != NULL);
-        byte * archivedBytes = GetArchivedBytes(codeTable, bytes, fileSize, &lengthArchivedBytes); //Получаем элементы исходного файла в заархивированном виде
-        assert(archivedBytes != NULL);
-        OtputArchivedFile(archivedBytes, argv[1], root->next, numberOfNodes, lengthArchivedBytes); //Запись заарвированных элементов в файл
-
-        printf("Your file is archived\n");
-
-        //Следующий блок функций создан для очистки памяти
-        free(bytes);
-        free(archivedBytes);
-        int i = 0;
-        while (acc4)
+        for (i = 1; i <= countOfParts; i++)
         {
-            acc4 = root->next;
+            bytes = (byte *)malloc(sizeOfBlock); //Выделение памяти под файл
+            if (bytes == NULL)
+            {
+                printf("Your computer is very bad!\n");
+                return 0;
+            }
+            fread(bytes, 1, sizeOfBlock, file); //Запись всех элементов файла в память
+
+            int numberOfNodes = 0; //Количество узлов дерева
+            int lengthArchivedBytes = 0; //Размер заархивированного файла
+            Node * root = CreateNewNode(true, true, NULL, NULL, NULL, 'R', INT_MAX); //Начальный узел
+            assert(root != NULL);
+            numberOfNodes = CreateStartNodes(root, bytes, sizeOfBlock); //Функция создает узлы и возвращает их кол-во
+            
+            Node * acc4 = CreateTree(root, sizeOfBlock); //Создание дерева
+            assert(acc4 != NULL);
+            string * codeTable = CreateCodeSymbols(acc4, sizeOfBlock); //Функция проходится по дереву и присваиает каждому символу новую кодировку
+            assert(codeTable != NULL);
+            byte * archivedBytes = GetArchivedBytes(codeTable, bytes, sizeOfBlock, &lengthArchivedBytes); //Получаем элементы исходного файла в заархивированном виде
+            assert(archivedBytes != NULL); 
+            OtputArchivedFile(archivedBytes, path1, root->next, numberOfNodes, lengthArchivedBytes); //Запись заарвированных элементов в файл
+
+            printf("A part of your file is archived\n");
+
+            //Следующий блок функций создан для очистки памяти
+            free(bytes);
+            free(archivedBytes);
+            int k = 0;
+            while (acc4)
+            {
+                acc4 = root->next;
+                free(root);
+                root = acc4;
+            }
             free(root);
-            root = acc4;
+            for (k = 0; k < 256; k++)
+            {
+                ClearString(codeTable + k);
+            }
+            free(codeTable);
+
+            if (i == (countOfParts - 1))
+                sizeOfBlock = fileSize - (countOfParts - 1) * SIZE_OF_BLOCK;
         }
-        free(root);
-        for (i = 0; i < 256; i++)
-        {
-            ClearString(codeTable + i);
-        }
-        free(codeTable);
+        printf("Now your file is archived");
+        fclose(file);
+        return 0;
     }
     else //При наличии сигнатуры начинается разархивация
     {
         FILE * file = fopen(argv[1], "rb");
-        assert(file != NULL);
-        int fileSize = GetFileSize(file);
-        if (GetSignaHeader(file) == true)
-            printf("This file is Archived\n");
-        Node * root = CreateNewNode(true, true, false, NULL, NULL, 'R', INT_MAX); //Стартовый узел
-        Node * copyRoot = root;
-        Node * acc = NULL;
-        assert(root != NULL);
-        assert(copyRoot != NULL);
-        int str = 0; //Длина заархивированного файла без сигнатуры и таблицы
-        int strLength = CreateAchivedNodes(file,root,&str); //Воссоздание всех узлов дерева
-        acc = CreateTree(copyRoot, strLength); //Создание древа
-        byte * data = (byte *)malloc(str);
-        assert(data != NULL);
-        fseek(file, fileSize - str, SEEK_SET);
-        fread(data, 1, str, file);
-        byte * buff = (byte *)malloc(strLength); //Выделение памяти под блок с разаархированным файлом
-        assert(buff != NULL);
-        memset(buff, 0, strLength);
-        Unarchive(acc, data, strLength, str, buff); //Процесс разархивации
-        fclose(file);
+        char * path = argv[1];
 
-        FILE * file1 = fopen(argv[1], "wb");
-        assert(file1 != NULL);
-        fwrite(buff, 1, strLength, file1); //Запись разархивированных элементов в файл
-        fclose(file1);
+        int offset;
+        int fuckOffset = 0;
+        int sizeOfBlock = 0; //Длина заархивированного файла без сигнатуры и таблицы
+        printf("Archived!\n");
 
-        printf("Now this file is unachived\n");
+        int waySize = strlen(path);
+        path[waySize - 5] = 0x00;
 
-        free(data);
-        while (acc)
+        while (true)
         {
-            acc = root->next;
+            if (GetSignaHeader(file) == true);
+
+            Node * root = CreateNewNode(true, true, false, NULL, NULL, 'R', INT_MAX); //Стартовый узел
+            Node * copyRoot = root;
+            Node * acc = NULL;
+            assert(root != NULL);
+            assert(copyRoot != NULL);
+
+            fread(&offset, 1, 4, file);
+
+            if (fuckOffset >= fileSize)
+            {
+                printf("Now all parts of your file are unachived!!!");
+                fclose(file);
+                return 0;
+            }
+
+            int strLength = CreateAchivedNodes(file, root, &sizeOfBlock, offset); //Воссоздание всех узлов дерева
+            acc = CreateTree(copyRoot, strLength); //Создание древа
+            byte * data = (byte *)malloc(sizeOfBlock);
+            assert(data != NULL);
+            fseek(file, offset - sizeOfBlock + fuckOffset, SEEK_SET);
+            fread(data, 1, sizeOfBlock, file);
+            byte * buff = (byte *)malloc(strLength); //Выделение памяти под блок с разаархированным файлом
+            assert(buff != NULL);
+            Unarchive(acc, data, strLength, sizeOfBlock, buff); //Процесс разархивации
+
+            FILE * file1 = fopen(path, "ab");
+            assert(file1 != NULL);
+            fwrite(buff, 1, strLength, file1); //Запись разархивированных элементов в файл
+            fclose(file1);
+
+            printf("Now a part of you file is unachived\n");
+
+            free(data);
+            while (acc)
+            {
+                acc = root->next;
+                free(root);
+                root = acc;
+            }
             free(root);
-            root = acc;
+            free(buff);
+            fuckOffset += offset;
         }
-        free(root);
-        free(buff);
     }
-    return 0;
 }
