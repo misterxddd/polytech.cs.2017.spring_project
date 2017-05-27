@@ -42,7 +42,7 @@ TEST(TestCreateTree, LittleTree)
 	TEST_ASSERT_EQUAL_INT( 'B', result11 );
 
 	int result2, result22;
-	Node * acc2 = Tree->rigth;
+	Node * acc2 = Tree->right;
 	result2 = acc2->count;
 	result22 = acc2->symbol;
 	TEST_ASSERT_EQUAL_INT( 6, result2 );
