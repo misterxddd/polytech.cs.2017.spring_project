@@ -23,10 +23,10 @@ TEST_TEAR_DOWN(TestCreateTree)
 TEST(TestCreateTree, LittleTree)
 {
 	Node * root = CreateNewNode(true, true, NULL, NULL, NULL, 'R', INT_MAX);
-	char byteArray[10] = "AAABBBBSS";
+	byte byteArray[10] = "AAABBBBSS";
 	int size = 10;
 
-	int NumberOfNodes = CreateStartNodes(root, byteArray, size);
+	CreateStartNodes(root, byteArray, size);
 
 	Node * Tree = CreateTree(root, size);
 

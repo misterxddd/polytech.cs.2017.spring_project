@@ -23,8 +23,8 @@ TEST_TEAR_DOWN(TestCreateStartNodes)
 TEST(TestCreateStartNodes, StartNodes)
 {
 	Node * root = CreateNewNode(true, true, NULL, NULL, NULL, 'R', INT_MAX);
-	char byteArray[10] = "AAABBBBSS";
-	char byteArray1[50] = "AAABBBBSSQWERTYUIOP{}ASDFGHJKL:fZXCVBNM<>?qwertyu";
+	byte byteArray[10] = "AAABBBBSS";
+	byte byteArray1[50] = "AAABBBBSSQWERTYUIOP{}ASDFGHJKL:fZXCVBNM<>?qwertyu";
 	int size = 10;
 	int size1 = 50;
 

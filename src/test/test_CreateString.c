@@ -22,10 +22,10 @@ TEST_TEAR_DOWN(TestCreateString)
 */
 TEST(TestCreateString, FunctionStringOfFour)
 {
-   char str[4] = "lol";
+   byte str[4] = "lol";
 
    string * sas = CreateString(str);
-   char result, result1, result2, result3;
+   char result, result1, result2;
    result = sas->symbol;
    TEST_ASSERT_EQUAL_INT( 'l', result );
 

@@ -74,9 +74,9 @@ TEST(TestCopyString, FromOneToString)
 
 	CopyString(strTest, Copyroot);
 
-        char result2;
-        result2 = Copyroot->symbol;
-        TEST_ASSERT_EQUAL_INT( 'A', result2 );
+    char result2;
+    result2 = Copyroot->symbol;
+    TEST_ASSERT_EQUAL_INT( 'A', result2 );
 }
 
 /** \fn TEST(TestCopyString, FromstringToString)
@@ -119,9 +119,9 @@ TEST(TestCopyString, FromstringToString)
 	result1 = Lenght(Copyroot1);
 	TEST_ASSERT_EQUAL_INT( 30, result1 );
 
-        char result2;
-        result2 = Copyroot1->symbol;
-        TEST_ASSERT_EQUAL_INT( 'B', result2 );
+    char result2;
+    result2 = Copyroot1->symbol;
+    TEST_ASSERT_EQUAL_INT( 'B', result2 );
 }
 
 
